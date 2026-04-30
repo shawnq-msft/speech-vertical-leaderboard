@@ -1,0 +1,249 @@
+[
+  {
+    "id": "m-azure-asr-batch",
+    "name": "Azure Speech (Batch)",
+    "taskType": "ASR",
+    "asrMode": "batch",
+    "vendor": "Azure",
+    "deployment": "cloud-api",
+    "modelVersion": "azure-stt-batch-2026-01",
+    "homepageUrl": "https://learn.microsoft.com/azure/ai-services/speech-service/batch-transcription",
+    "descriptionBullets": [
+      "Cloud batch transcription API",
+      "Multi-language, diarization optional"
+    ],
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-01-10"
+  },
+  {
+    "id": "m-azure-asr-streaming",
+    "name": "Azure Speech (Streaming)",
+    "taskType": "ASR",
+    "asrMode": "streaming",
+    "vendor": "Azure",
+    "deployment": "cloud-api",
+    "modelVersion": "azure-stt-streaming-2026-01",
+    "homepageUrl": "https://learn.microsoft.com/azure/ai-services/speech-service/how-to-recognize-speech",
+    "descriptionBullets": [
+      "Real-time streaming recognition",
+      "Intermediate hypotheses emitted every ~100 ms"
+    ],
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-01-10"
+  },
+  {
+    "id": "m-openai-whisper-large-v3",
+    "name": "OpenAI Whisper large-v3",
+    "taskType": "ASR",
+    "asrMode": "batch",
+    "vendor": "OpenAI",
+    "deployment": "cloud-api",
+    "modelVersion": "whisper-large-v3",
+    "homepageUrl": "https://platform.openai.com/docs/models/whisper",
+    "descriptionBullets": [
+      "Whisper large-v3 via OpenAI API",
+      "Multilingual, batch only"
+    ],
+    "submittedBy": "researcher-a",
+    "approvedAt": "2026-01-15"
+  },
+  {
+    "id": "m-deepgram-nova-streaming",
+    "name": "Deepgram Nova-2 Streaming",
+    "taskType": "ASR",
+    "asrMode": "streaming",
+    "vendor": "Deepgram",
+    "deployment": "cloud-api",
+    "modelVersion": "nova-2",
+    "homepageUrl": "https://developers.deepgram.com/docs/models-overview",
+    "descriptionBullets": [
+      "Low-latency streaming STT",
+      "Optimized for contact-center audio"
+    ],
+    "submittedBy": "researcher-a",
+    "approvedAt": "2026-03-15"
+  },
+  {
+    "id": "m-google-asr-streaming",
+    "name": "Google Cloud STT (Streaming)",
+    "taskType": "ASR",
+    "asrMode": "streaming",
+    "vendor": "Google",
+    "deployment": "cloud-api",
+    "modelVersion": "chirp-2",
+    "homepageUrl": "https://cloud.google.com/speech-to-text/v2/docs/chirp_2-model",
+    "descriptionBullets": [
+      "Chirp-2 universal speech model",
+      "Streaming API, 100+ languages"
+    ],
+    "submittedBy": "researcher-b",
+    "approvedAt": "2026-02-01"
+  },
+  {
+    "id": "m-iflytek-asr-zh",
+    "name": "iFlytek ASR (zh)",
+    "taskType": "ASR",
+    "asrMode": "batch",
+    "vendor": "iFlytek",
+    "deployment": "cloud-api",
+    "modelVersion": "iat-2025-12",
+    "homepageUrl": "https://www.xfyun.cn/services/lfasr",
+    "descriptionBullets": [
+      "Mandarin-optimized cloud ASR",
+      "Strong on noisy in-cabin audio"
+    ],
+    "submittedBy": "researcher-c",
+    "approvedAt": "2026-02-10"
+  },
+  {
+    "id": "m-whisper-cpp-snapdragon",
+    "name": "Whisper.cpp on Snapdragon NPU",
+    "taskType": "ASR",
+    "asrMode": "batch",
+    "vendor": "Whisper.cpp",
+    "deployment": "on-device",
+    "modelVersion": "whisper-base.en-int8",
+    "hardware": {
+      "architecture": "NPU",
+      "chipset": "Snapdragon 8 Gen 3",
+      "runtime": "Qualcomm-AI-Engine",
+      "quantization": "int8",
+      "memoryFootprintMb": 220
+    },
+    "homepageUrl": "https://github.com/ggerganov/whisper.cpp",
+    "descriptionBullets": [
+      "whisper.cpp build for Qualcomm AI Engine",
+      "int8-quantized base.en model, ~220 MB RAM"
+    ],
+    "submittedBy": "edge-team",
+    "approvedAt": "2026-03-01"
+  },
+  {
+    "id": "m-whisper-cpp-coreml",
+    "name": "Whisper.cpp on Apple M3 (CoreML)",
+    "taskType": "ASR",
+    "asrMode": "batch",
+    "vendor": "Whisper.cpp",
+    "deployment": "on-device",
+    "modelVersion": "whisper-small-fp16",
+    "hardware": {
+      "architecture": "NPU",
+      "chipset": "Apple M3",
+      "runtime": "CoreML",
+      "quantization": "fp16",
+      "memoryFootprintMb": 480
+    },
+    "homepageUrl": "https://github.com/ggerganov/whisper.cpp",
+    "descriptionBullets": [
+      "whisper.cpp CoreML build on Apple Silicon",
+      "fp16 small model, Neural Engine accelerated"
+    ],
+    "submittedBy": "edge-team",
+    "approvedAt": "2026-03-02"
+  },
+  {
+    "id": "m-toyota-internal-asr",
+    "name": "Toyota Internal Edge ASR",
+    "taskType": "ASR",
+    "asrMode": "streaming",
+    "vendor": "Toyota-Internal",
+    "deployment": "on-device",
+    "modelVersion": "toy-asr-v4",
+    "hardware": {
+      "architecture": "DSP",
+      "chipset": "Renesas R-Car V4H",
+      "runtime": "ONNX-Runtime",
+      "quantization": "int8",
+      "memoryFootprintMb": 180
+    },
+    "homepageUrl": "https://example.com/toyota-internal-asr",
+    "descriptionBullets": [
+      "Toyota internal edge ASR, in-cabin only",
+      "Domain-adapted on Toyota in-car commands"
+    ],
+    "submittedBy": "toyota-collab",
+    "approvedAt": "2026-03-20"
+  },
+  {
+    "id": "m-azure-tts-neural",
+    "name": "Azure Neural TTS",
+    "taskType": "TTS",
+    "vendor": "Azure",
+    "deployment": "cloud-api",
+    "modelVersion": "neural-tts-v3",
+    "homepageUrl": "https://learn.microsoft.com/azure/ai-services/speech-service/text-to-speech",
+    "descriptionBullets": [
+      "Azure Neural TTS (v3)",
+      "400+ voices across 140+ locales"
+    ],
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-01-10"
+  },
+  {
+    "id": "m-elevenlabs-tts",
+    "name": "ElevenLabs Multilingual v2",
+    "taskType": "TTS",
+    "vendor": "ElevenLabs",
+    "deployment": "cloud-api",
+    "modelVersion": "eleven_multilingual_v2",
+    "homepageUrl": "https://elevenlabs.io/docs/models",
+    "descriptionBullets": [
+      "ElevenLabs multilingual v2",
+      "High MOS on expressive reads"
+    ],
+    "submittedBy": "researcher-a",
+    "approvedAt": "2026-01-20"
+  },
+  {
+    "id": "m-openai-tts-1-hd",
+    "name": "OpenAI TTS-1-HD",
+    "taskType": "TTS",
+    "vendor": "OpenAI",
+    "deployment": "cloud-api",
+    "modelVersion": "tts-1-hd",
+    "homepageUrl": "https://platform.openai.com/docs/guides/text-to-speech",
+    "descriptionBullets": [
+      "OpenAI tts-1-hd voice synthesis",
+      "6 voices, English-centric"
+    ],
+    "submittedBy": "researcher-b",
+    "approvedAt": "2026-02-01"
+  },
+  {
+    "id": "m-tencent-tts",
+    "name": "Tencent Cloud TTS",
+    "taskType": "TTS",
+    "vendor": "Tencent",
+    "deployment": "cloud-api",
+    "modelVersion": "tts-pro-2025",
+    "homepageUrl": "https://cloud.tencent.com/document/product/1073",
+    "descriptionBullets": [
+      "Tencent Cloud TTS pro",
+      "Strong on Mandarin + Cantonese"
+    ],
+    "submittedBy": "researcher-c",
+    "approvedAt": "2026-02-15"
+  },
+  {
+    "id": "m-piper-on-device",
+    "name": "Piper TTS on-device (Jetson)",
+    "taskType": "TTS",
+    "vendor": "Piper",
+    "deployment": "on-device",
+    "modelVersion": "piper-medium",
+    "hardware": {
+      "architecture": "GPU",
+      "chipset": "NVIDIA Jetson Orin",
+      "runtime": "TensorRT",
+      "quantization": "fp16",
+      "memoryFootprintMb": 320
+    },
+    "homepageUrl": "https://github.com/rhasspy/piper",
+    "descriptionBullets": [
+      "Piper TTS, TensorRT build",
+      "Runs on Jetson Orin, fp16"
+    ],
+    "submittedBy": "edge-team",
+    "approvedAt": "2026-03-10"
+  }
+]

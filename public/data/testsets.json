@@ -1,0 +1,781 @@
+[
+  {
+    "id": "ts-msft-teams-en",
+    "name": "MSFT Teams Meeting (en-US)",
+    "taskType": "ASR",
+    "description": "Teams conference calls, 2-8 speakers, far-field + headset mix.",
+    "descriptionBullets": [
+      "Teams conference recordings, 2-8 speakers",
+      "Mix of far-field room mics and headset audio",
+      "Scoring: WER against ground-truth transcripts"
+    ],
+    "homepageUrl": "https://example.com/msft-teams-en",
+    "size": 1800,
+    "languages": [{ "code": "en-US", "tier": "tier-1", "region": "Americas" }],
+    "scenario": "meeting",
+    "customer": "MSFT",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-01-15"
+  },
+  {
+    "id": "ts-msft-teams-zh",
+    "name": "MSFT Teams Meeting (zh-CN)",
+    "taskType": "ASR",
+    "description": "Mandarin Teams meetings from Greater-China tenants.",
+    "descriptionBullets": [
+      "Mandarin Teams meetings, mixed regional accents",
+      "4-8 speakers, cross-talk common",
+      "Scoring: CER against ground-truth transcripts"
+    ],
+    "homepageUrl": "https://example.com/msft-teams-zh",
+    "size": 900,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "meeting",
+    "customer": "MSFT",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-01-18"
+  },
+  {
+    "id": "ts-msft-dictation-en",
+    "name": "MSFT Dictation (en-US)",
+    "taskType": "ASR",
+    "description": "Word / Outlook dictation, close-talk headset mic.",
+    "descriptionBullets": [
+      "Dictation utterances for Word / Outlook",
+      "Close-talk headset, quiet office background",
+      "Scoring: WER + punctuation accuracy"
+    ],
+    "homepageUrl": "https://example.com/msft-dictation-en",
+    "size": 1500,
+    "languages": [{ "code": "en-US", "tier": "tier-1", "region": "Americas" }],
+    "scenario": "mobile",
+    "customer": "MSFT",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-01-22"
+  },
+  {
+    "id": "ts-msft-dictation-ja",
+    "name": "MSFT Dictation (ja-JP)",
+    "taskType": "ASR",
+    "description": "Japanese dictation for Office.",
+    "descriptionBullets": [
+      "Japanese Office dictation",
+      "Mixed kanji / katakana technical vocabulary",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/msft-dictation-ja",
+    "size": 700,
+    "languages": [{ "code": "ja-JP", "tier": "tier-1", "region": "Japan-Korea" }],
+    "scenario": "mobile",
+    "customer": "MSFT",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-01-25"
+  },
+  {
+    "id": "ts-msft-conversation-en",
+    "name": "MSFT Conversation Call-Center (en-US)",
+    "taskType": "ASR",
+    "description": "Conversational contact-center audio, telephony 8 kHz.",
+    "descriptionBullets": [
+      "Conversational contact-center calls",
+      "Telephony 8 kHz, scripted + unscripted",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/msft-conversation-en",
+    "size": 2200,
+    "languages": [{ "code": "en-US", "tier": "tier-1", "region": "Americas" }],
+    "scenario": "callcenter",
+    "customer": "MSFT",
+    "allowsThirdPartyEndpoints": true,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-02"
+  },
+  {
+    "id": "ts-msft-conversation-es",
+    "name": "MSFT Conversation Call-Center (es-MX)",
+    "taskType": "ASR",
+    "description": "Mexican Spanish contact-center conversations.",
+    "descriptionBullets": [
+      "Mexican Spanish contact-center calls",
+      "Telephony 8 kHz",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/msft-conversation-es",
+    "size": 800,
+    "languages": [{ "code": "es-MX", "tier": "tier-1", "region": "LATAM" }],
+    "scenario": "callcenter",
+    "customer": "MSFT",
+    "allowsThirdPartyEndpoints": true,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-06"
+  },
+  {
+    "id": "ts-msft-teams-tts-en",
+    "name": "MSFT Teams TTS Read-Back (en-US)",
+    "taskType": "TTS",
+    "description": "Teams read-back prompts (meeting summaries, captions).",
+    "descriptionBullets": [
+      "Read-back of meeting summaries",
+      "MOS rated by 30 listeners (CrowdMOS)",
+      "Scoring: MOS, pronunciation, first-byte latency, RTF"
+    ],
+    "homepageUrl": "https://example.com/msft-teams-tts-en",
+    "size": 320,
+    "languages": [{ "code": "en-US", "tier": "tier-1", "region": "Americas" }],
+    "scenario": "meeting",
+    "customer": "MSFT",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-12"
+  },
+  {
+    "id": "ts-toyota-car-en",
+    "name": "Toyota In-Car Commands (en-US)",
+    "taskType": "ASR",
+    "description": "1.2k utterances of in-cabin voice commands recorded in moving vehicles with road noise.",
+    "descriptionBullets": [
+      "In-cabin voice commands recorded in moving vehicles",
+      "Mixed road + HVAC noise (0-80 km/h)",
+      "Scoring: WER against ground-truth transcripts"
+    ],
+    "homepageUrl": "https://github.com/OpenClaw/Hermes/tree/main/datasets/toyota-car-en",
+    "size": 1200,
+    "languages": [{ "code": "en-US", "tier": "tier-1", "region": "Americas" }],
+    "scenario": "car",
+    "customer": "Toyota",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-01-15"
+  },
+  {
+    "id": "ts-toyota-car-ja",
+    "name": "Toyota In-Car Commands (ja-JP)",
+    "taskType": "ASR",
+    "description": "Japanese in-cabin voice commands for Toyota home-market fleet.",
+    "descriptionBullets": [
+      "Japanese in-cabin commands",
+      "Home-market Toyota fleet recordings",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/toyota-car-ja",
+    "size": 1100,
+    "languages": [{ "code": "ja-JP", "tier": "tier-1", "region": "Japan-Korea" }],
+    "scenario": "car",
+    "customer": "Toyota",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-01-18"
+  },
+  {
+    "id": "ts-toyota-tts-en",
+    "name": "Toyota In-Car TTS Prompts (en-US)",
+    "taskType": "TTS",
+    "description": "Navigation + alert prompts; MOS rated by 30 listeners.",
+    "descriptionBullets": [
+      "Navigation + alert prompts",
+      "MOS rated by 30 listeners (CrowdMOS protocol)",
+      "Scoring: MOS, pronunciation accuracy, first-byte latency, RTF"
+    ],
+    "homepageUrl": "https://github.com/OpenClaw/Hermes/tree/main/datasets/toyota-tts-en",
+    "size": 300,
+    "languages": [{ "code": "en-US", "tier": "tier-1", "region": "Americas" }],
+    "scenario": "car",
+    "customer": "Toyota",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-01"
+  },
+  {
+    "id": "ts-saic-car-zh",
+    "name": "SAIC Roewe In-Car Multi-Turn (zh-CN)",
+    "taskType": "ASR",
+    "description": "Multi-turn dialog inside SAIC vehicles (home market). SAIC fleet covers 35 locales globally; this subset is Mandarin.",
+    "descriptionBullets": [
+      "Multi-turn dialog inside SAIC vehicles",
+      "Navigation, media control, climate",
+      "Scoring: CER; latency measured with VAD endpointing"
+    ],
+    "homepageUrl": "https://github.com/OpenClaw/Hermes/tree/main/datasets/saic-car-zh",
+    "size": 800,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "car",
+    "customer": "SAIC",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-02"
+  },
+  {
+    "id": "ts-saic-car-en",
+    "name": "SAIC MG In-Car Commands (en-GB)",
+    "taskType": "ASR",
+    "description": "MG-brand (SAIC) UK/EU fleet in-cabin commands. Part of SAIC's 35-language coverage.",
+    "descriptionBullets": [
+      "MG-brand UK/EU fleet",
+      "British English accents",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/saic-mg-en-gb",
+    "size": 600,
+    "languages": [{ "code": "en-GB", "tier": "tier-1", "region": "EMEA" }],
+    "scenario": "car",
+    "customer": "SAIC",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-06"
+  },
+  {
+    "id": "ts-saic-car-th",
+    "name": "SAIC MG In-Car (th-TH)",
+    "taskType": "ASR",
+    "description": "Thai in-cabin commands for MG Thailand fleet. Part of SAIC's 35-language coverage.",
+    "descriptionBullets": [
+      "Thai in-cabin commands (MG Thailand)",
+      "Urban + highway mix",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/saic-mg-th",
+    "size": 450,
+    "languages": [{ "code": "th-TH", "tier": "tier-2", "region": "Southeast-Asia" }],
+    "scenario": "car",
+    "customer": "SAIC",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-10"
+  },
+  {
+    "id": "ts-saic-car-de",
+    "name": "SAIC MG In-Car (de-DE)",
+    "taskType": "ASR",
+    "description": "German in-cabin commands (MG Germany). Part of SAIC's 35-language coverage.",
+    "descriptionBullets": [
+      "German in-cabin commands",
+      "Autobahn + city driving",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/saic-mg-de",
+    "size": 550,
+    "languages": [{ "code": "de-DE", "tier": "tier-1", "region": "EMEA" }],
+    "scenario": "car",
+    "customer": "SAIC",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-14"
+  },
+  {
+    "id": "ts-saic-car-ar",
+    "name": "SAIC MG In-Car (ar-SA)",
+    "taskType": "ASR",
+    "description": "Arabic in-cabin commands for MG Gulf-region fleet. Part of SAIC's 35-language coverage.",
+    "descriptionBullets": [
+      "Arabic in-cabin commands (Gulf)",
+      "Dialectal normalization applied",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/saic-mg-ar",
+    "size": 400,
+    "languages": [{ "code": "ar-SA", "tier": "tier-2", "region": "MidEast" }],
+    "scenario": "car",
+    "customer": "SAIC",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-18"
+  },
+  {
+    "id": "ts-saic-tts-zh",
+    "name": "SAIC In-Car TTS Prompts (zh-CN)",
+    "taskType": "TTS",
+    "description": "Mandarin navigation prompts including English POI names (code-switch).",
+    "descriptionBullets": [
+      "Mandarin navigation prompts",
+      "Includes English POI name code-switch",
+      "Scoring: MOS, pronunciation accuracy"
+    ],
+    "homepageUrl": "https://github.com/OpenClaw/Hermes/tree/main/datasets/saic-tts-zh",
+    "size": 350,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "car",
+    "customer": "SAIC",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-05"
+  },
+  {
+    "id": "ts-changan-mazda-zh",
+    "name": "Changan Mazda In-Car (zh-CN)",
+    "taskType": "ASR",
+    "description": "Changan Mazda in-cabin commands, home market. Fleet covers 14 locales.",
+    "descriptionBullets": [
+      "Changan Mazda home-market fleet",
+      "Mandarin, mixed dialects",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/changan-mazda-zh",
+    "size": 700,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "car",
+    "customer": "Changan Mazda",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-20"
+  },
+  {
+    "id": "ts-changan-mazda-en",
+    "name": "Changan Mazda In-Car (en-US)",
+    "taskType": "ASR",
+    "description": "Changan Mazda export-market in-cabin commands. Fleet covers 14 locales.",
+    "descriptionBullets": [
+      "Export-market fleet, English commands",
+      "Mixed road conditions",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/changan-mazda-en",
+    "size": 500,
+    "languages": [{ "code": "en-US", "tier": "tier-1", "region": "Americas" }],
+    "scenario": "car",
+    "customer": "Changan Mazda",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-24"
+  },
+  {
+    "id": "ts-changan-mazda-tts-zh",
+    "name": "Changan Mazda TTS (zh-CN)",
+    "taskType": "TTS",
+    "description": "Mandarin TTS prompts for Changan Mazda HMI.",
+    "descriptionBullets": [
+      "Mandarin HMI prompts",
+      "MOS rated by 25 listeners",
+      "Scoring: MOS, pronunciation accuracy"
+    ],
+    "homepageUrl": "https://example.com/changan-mazda-tts-zh",
+    "size": 280,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "car",
+    "customer": "Changan Mazda",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-02"
+  },
+  {
+    "id": "ts-lge-meeting-ko",
+    "name": "LG Meeting Room (ko-KR)",
+    "taskType": "ASR",
+    "description": "Conference-room far-field Korean meetings. LGE HMI covers 31 locales.",
+    "descriptionBullets": [
+      "Far-field Korean meeting recordings",
+      "4-8 speakers, cross-talk",
+      "Scoring: WER and CER"
+    ],
+    "homepageUrl": "https://github.com/OpenClaw/Hermes/tree/main/datasets/lge-meeting-ko",
+    "size": 600,
+    "languages": [{ "code": "ko-KR", "tier": "tier-2", "region": "Japan-Korea" }],
+    "scenario": "meeting",
+    "customer": "LGE",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-10"
+  },
+  {
+    "id": "ts-lge-smarthome-en",
+    "name": "LG Smart-Home Appliance (en-US)",
+    "taskType": "ASR",
+    "description": "Far-field commands to LG ThinQ appliances. Part of LGE's 31-language coverage.",
+    "descriptionBullets": [
+      "LG ThinQ appliance commands",
+      "Far-field kitchen / living-room noise",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/lge-smarthome-en",
+    "size": 900,
+    "languages": [{ "code": "en-US", "tier": "tier-1", "region": "Americas" }],
+    "scenario": "smart-home",
+    "customer": "LGE",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-14"
+  },
+  {
+    "id": "ts-lge-smarthome-de",
+    "name": "LG Smart-Home Appliance (de-DE)",
+    "taskType": "ASR",
+    "description": "German ThinQ appliance commands. Part of LGE's 31-language coverage.",
+    "descriptionBullets": [
+      "German ThinQ commands",
+      "Far-field household noise",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/lge-smarthome-de",
+    "size": 500,
+    "languages": [{ "code": "de-DE", "tier": "tier-1", "region": "EMEA" }],
+    "scenario": "smart-home",
+    "customer": "LGE",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-18"
+  },
+  {
+    "id": "ts-lge-smarthome-es",
+    "name": "LG Smart-Home Appliance (es-MX)",
+    "taskType": "ASR",
+    "description": "Mexican Spanish ThinQ commands. Part of LGE's 31-language coverage.",
+    "descriptionBullets": [
+      "Mexican Spanish ThinQ commands",
+      "Far-field household noise",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/lge-smarthome-es",
+    "size": 420,
+    "languages": [{ "code": "es-MX", "tier": "tier-1", "region": "LATAM" }],
+    "scenario": "smart-home",
+    "customer": "LGE",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-02-22"
+  },
+  {
+    "id": "ts-lge-tts-ko",
+    "name": "LG ThinQ TTS (ko-KR)",
+    "taskType": "TTS",
+    "description": "Korean TTS prompts for LG appliances.",
+    "descriptionBullets": [
+      "Korean appliance voice prompts",
+      "MOS rated by 25 listeners",
+      "Scoring: MOS, pronunciation"
+    ],
+    "homepageUrl": "https://example.com/lge-tts-ko",
+    "size": 260,
+    "languages": [{ "code": "ko-KR", "tier": "tier-2", "region": "Japan-Korea" }],
+    "scenario": "smart-home",
+    "customer": "LGE",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-04"
+  },
+  {
+    "id": "ts-leapmotor-car-zh",
+    "name": "Leap Motor In-Car (zh-CN)",
+    "taskType": "ASR",
+    "description": "Leap Motor home-market in-cabin commands. Fleet covers 9 locales.",
+    "descriptionBullets": [
+      "Leap Motor home-market fleet",
+      "Mandarin in-cabin commands",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/leapmotor-zh",
+    "size": 650,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "car",
+    "customer": "Leap Motor",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-06"
+  },
+  {
+    "id": "ts-leapmotor-car-it",
+    "name": "Leap Motor In-Car (it-IT)",
+    "taskType": "ASR",
+    "description": "Italian in-cabin commands for Leap Motor EU rollout. Fleet covers 9 locales.",
+    "descriptionBullets": [
+      "Italian in-cabin commands (EU rollout)",
+      "Urban driving",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/leapmotor-it",
+    "size": 380,
+    "languages": [{ "code": "it-IT", "tier": "tier-2", "region": "EMEA" }],
+    "scenario": "car",
+    "customer": "Leap Motor",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-10"
+  },
+  {
+    "id": "ts-xpeng-car-zh",
+    "name": "Xpeng In-Car (zh-CN)",
+    "taskType": "ASR",
+    "description": "Xpeng home-market in-cabin commands. Fleet covers 4 locales.",
+    "descriptionBullets": [
+      "Xpeng home-market fleet",
+      "Multi-turn navigation + media",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/xpeng-zh",
+    "size": 720,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "car",
+    "customer": "Xpeng",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-12"
+  },
+  {
+    "id": "ts-xpeng-car-nb",
+    "name": "Xpeng In-Car (nb-NO)",
+    "taskType": "ASR",
+    "description": "Norwegian in-cabin commands for Xpeng Nordic rollout. Fleet covers 4 locales.",
+    "descriptionBullets": [
+      "Norwegian in-cabin commands",
+      "Cold-climate cabin acoustics",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/xpeng-nb",
+    "size": 300,
+    "languages": [{ "code": "nb-NO", "tier": "tier-3", "region": "EMEA" }],
+    "scenario": "car",
+    "customer": "Xpeng",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-14"
+  },
+  {
+    "id": "ts-xpeng-tts-zh",
+    "name": "Xpeng In-Car TTS (zh-CN)",
+    "taskType": "TTS",
+    "description": "Mandarin TTS for Xpeng HMI.",
+    "descriptionBullets": [
+      "Mandarin HMI prompts",
+      "MOS rated by 25 listeners",
+      "Scoring: MOS, pronunciation"
+    ],
+    "homepageUrl": "https://example.com/xpeng-tts-zh",
+    "size": 240,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "car",
+    "customer": "Xpeng",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-18"
+  },
+  {
+    "id": "ts-tesla-car-zh",
+    "name": "Tesla In-Car (zh-CN)",
+    "taskType": "ASR",
+    "description": "Tesla China in-cabin commands. Single-locale zh-CN submission.",
+    "descriptionBullets": [
+      "Tesla China home-market fleet",
+      "Mandarin in-cabin commands",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/tesla-zh",
+    "size": 600,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "car",
+    "customer": "Tesla",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-20"
+  },
+  {
+    "id": "ts-voyah-car-zh",
+    "name": "Voyah In-Car (zh-CN)",
+    "taskType": "ASR",
+    "description": "Voyah home-market in-cabin commands. Fleet covers 5 locales.",
+    "descriptionBullets": [
+      "Voyah home-market fleet",
+      "Premium-cabin acoustics",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/voyah-zh",
+    "size": 500,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "car",
+    "customer": "Voyah",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-22"
+  },
+  {
+    "id": "ts-voyah-car-ru",
+    "name": "Voyah In-Car (ru-RU)",
+    "taskType": "ASR",
+    "description": "Russian in-cabin commands for Voyah export fleet. Fleet covers 5 locales.",
+    "descriptionBullets": [
+      "Russian in-cabin commands",
+      "Export-market fleet",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/voyah-ru",
+    "size": 300,
+    "languages": [{ "code": "ru-RU", "tier": "tier-2", "region": "EMEA" }],
+    "scenario": "car",
+    "customer": "Voyah",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-25"
+  },
+  {
+    "id": "ts-xiaomi-car-zh",
+    "name": "Xiaomi SU7 In-Car (zh-CN)",
+    "taskType": "ASR",
+    "description": "Xiaomi SU7 in-cabin commands, home market.",
+    "descriptionBullets": [
+      "Xiaomi SU7 home-market fleet",
+      "Multi-turn commands, HyperOS HMI",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/xiaomi-car-zh",
+    "size": 680,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "car",
+    "customer": "Xiaomi",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-26"
+  },
+  {
+    "id": "ts-xiaomi-mobile-zh",
+    "name": "Xiaomi Mobile XiaoAI (zh-CN)",
+    "taskType": "ASR",
+    "description": "Xiaomi XiaoAI assistant on-phone commands.",
+    "descriptionBullets": [
+      "XiaoAI on-phone voice commands",
+      "Near-field handheld mic",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/xiaomi-mobile-zh",
+    "size": 1400,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "mobile",
+    "customer": "Xiaomi",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-28"
+  },
+  {
+    "id": "ts-xiaomi-mobile-en",
+    "name": "Xiaomi Mobile XiaoAI (en-IN)",
+    "taskType": "ASR",
+    "description": "XiaoAI on-phone commands, India market (Indian English).",
+    "descriptionBullets": [
+      "Indian English on-phone commands",
+      "India market rollout",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/xiaomi-mobile-en-in",
+    "size": 700,
+    "languages": [{ "code": "en-IN", "tier": "tier-2", "region": "India-South-Asia" }],
+    "scenario": "mobile",
+    "customer": "Xiaomi",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-03-30"
+  },
+  {
+    "id": "ts-oppo-mobile-zh",
+    "name": "Oppo Breeno Mobile (zh-CN)",
+    "taskType": "ASR",
+    "description": "Oppo Breeno assistant on-phone commands.",
+    "descriptionBullets": [
+      "Breeno assistant voice commands",
+      "Near-field handheld",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/oppo-mobile-zh",
+    "size": 1100,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "mobile",
+    "customer": "Oppo",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-04-01"
+  },
+  {
+    "id": "ts-oppo-mobile-id",
+    "name": "Oppo Mobile (id-ID)",
+    "taskType": "ASR",
+    "description": "Indonesian on-phone commands for Oppo SEA rollout.",
+    "descriptionBullets": [
+      "Indonesian on-phone commands",
+      "SEA market",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/oppo-mobile-id",
+    "size": 550,
+    "languages": [{ "code": "id-ID", "tier": "tier-2", "region": "Southeast-Asia" }],
+    "scenario": "mobile",
+    "customer": "Oppo",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-04-03"
+  },
+  {
+    "id": "ts-honor-mobile-zh",
+    "name": "Honor YOYO Mobile (zh-CN)",
+    "taskType": "ASR",
+    "description": "Honor YOYO assistant on-phone commands.",
+    "descriptionBullets": [
+      "YOYO assistant voice commands",
+      "Near-field handheld",
+      "Scoring: CER"
+    ],
+    "homepageUrl": "https://example.com/honor-mobile-zh",
+    "size": 1050,
+    "languages": [{ "code": "zh-CN", "tier": "tier-1", "region": "Greater-China" }],
+    "scenario": "mobile",
+    "customer": "Honor",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-04-05"
+  },
+  {
+    "id": "ts-honor-mobile-en",
+    "name": "Honor Mobile (en-GB)",
+    "taskType": "ASR",
+    "description": "British English on-phone commands for Honor EU rollout.",
+    "descriptionBullets": [
+      "British English on-phone commands",
+      "EU rollout",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/honor-mobile-en",
+    "size": 500,
+    "languages": [{ "code": "en-GB", "tier": "tier-1", "region": "EMEA" }],
+    "scenario": "mobile",
+    "customer": "Honor",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-04-07"
+  },
+  {
+    "id": "ts-lenovo-mobile-en",
+    "name": "Lenovo Mobile (en-US)",
+    "taskType": "ASR",
+    "description": "Lenovo / Motorola on-phone voice commands.",
+    "descriptionBullets": [
+      "Motorola assistant voice commands",
+      "Near-field handheld",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/lenovo-mobile-en",
+    "size": 820,
+    "languages": [{ "code": "en-US", "tier": "tier-1", "region": "Americas" }],
+    "scenario": "mobile",
+    "customer": "Lenovo",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-04-09"
+  },
+  {
+    "id": "ts-lenovo-mobile-pt",
+    "name": "Lenovo Mobile (pt-BR)",
+    "taskType": "ASR",
+    "description": "Brazilian Portuguese on-phone commands for Motorola LATAM fleet.",
+    "descriptionBullets": [
+      "Brazilian Portuguese on-phone commands",
+      "LATAM Motorola rollout",
+      "Scoring: WER"
+    ],
+    "homepageUrl": "https://example.com/lenovo-mobile-pt",
+    "size": 460,
+    "languages": [{ "code": "pt-BR", "tier": "tier-1", "region": "LATAM" }],
+    "scenario": "mobile",
+    "customer": "Lenovo",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-04-12"
+  }
+]
