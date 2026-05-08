@@ -3243,7 +3243,7 @@
     "modelId": "m-azure-fast-llm",
     "testSetId": "ts-mazda-de-de-dt1",
     "metric": "WER",
-    "value": 56.6,
+    "value": 54.9,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-fast_llm"
@@ -3297,7 +3297,7 @@
     "modelId": "m-azure-fast-mai",
     "testSetId": "ts-mazda-de-de-dt1",
     "metric": "WER",
-    "value": 50.8,
+    "value": 47.5,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-fast_mai"
@@ -3495,7 +3495,7 @@
     "modelId": "m-azure-fast-default",
     "testSetId": "ts-mazda-de-de-dt2",
     "metric": "WER",
-    "value": 71.7,
+    "value": 68.4,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-fast_default"
@@ -3603,7 +3603,7 @@
     "modelId": "m-azure-fast-mai",
     "testSetId": "ts-mazda-de-de-dt2",
     "metric": "WER",
-    "value": 63.6,
+    "value": 60.2,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-fast_mai"
@@ -3657,7 +3657,7 @@
     "modelId": "m-azure-realtime",
     "testSetId": "ts-mazda-de-de-dt2",
     "metric": "WER",
-    "value": 71.8,
+    "value": 68.5,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-realtime"
@@ -3729,7 +3729,7 @@
     "modelId": "m-azure-realtime-refine",
     "testSetId": "ts-mazda-de-de-dt2",
     "metric": "WER",
-    "value": 67.9,
+    "value": 64.6,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-realtime_refine"
@@ -3801,7 +3801,7 @@
     "modelId": "m-azure-fast-default",
     "testSetId": "ts-mazda-de-de-jt1",
     "metric": "WER",
-    "value": 41.7,
+    "value": 35.1,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-fast_default"
@@ -3855,7 +3855,7 @@
     "modelId": "m-azure-fast-llm",
     "testSetId": "ts-mazda-de-de-jt1",
     "metric": "WER",
-    "value": 37,
+    "value": 32,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-fast_llm"
@@ -3909,7 +3909,7 @@
     "modelId": "m-azure-fast-mai",
     "testSetId": "ts-mazda-de-de-jt1",
     "metric": "WER",
-    "value": 31.9,
+    "value": 25.2,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-fast_mai"
@@ -3963,7 +3963,7 @@
     "modelId": "m-azure-realtime",
     "testSetId": "ts-mazda-de-de-jt1",
     "metric": "WER",
-    "value": 34.4,
+    "value": 29.4,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-realtime"
@@ -4035,7 +4035,7 @@
     "modelId": "m-azure-realtime-refine",
     "testSetId": "ts-mazda-de-de-jt1",
     "metric": "WER",
-    "value": 36.1,
+    "value": 29.5,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-de-DE-realtime_refine"
@@ -4161,7 +4161,7 @@
     "modelId": "m-azure-fast-llm",
     "testSetId": "ts-mazda-es-es-dt1",
     "metric": "WER",
-    "value": 20.2,
+    "value": 18.9,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-es-ES-fast_llm"
@@ -4467,7 +4467,7 @@
     "modelId": "m-azure-fast-llm",
     "testSetId": "ts-mazda-es-es-dt2",
     "metric": "WER",
-    "value": 16.4,
+    "value": 15.1,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-es-ES-fast_llm"
@@ -5943,7 +5943,7 @@
     "modelId": "m-azure-fast-default",
     "testSetId": "ts-mazda-it-it-dt1",
     "metric": "WER",
-    "value": 8.9,
+    "value": 7.9,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-fast_default"
@@ -5997,7 +5997,7 @@
     "modelId": "m-azure-fast-llm",
     "testSetId": "ts-mazda-it-it-dt1",
     "metric": "WER",
-    "value": 7.2,
+    "value": 6.2,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-fast_llm"
@@ -6051,7 +6051,7 @@
     "modelId": "m-azure-fast-mai",
     "testSetId": "ts-mazda-it-it-dt1",
     "metric": "WER",
-    "value": 9.6,
+    "value": 8.7,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-fast_mai"
@@ -6105,7 +6105,7 @@
     "modelId": "m-azure-realtime",
     "testSetId": "ts-mazda-it-it-dt1",
     "metric": "WER",
-    "value": 9.7,
+    "value": 8.8,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-realtime"
@@ -6177,7 +6177,7 @@
     "modelId": "m-azure-realtime-refine",
     "testSetId": "ts-mazda-it-it-dt1",
     "metric": "WER",
-    "value": 8.2,
+    "value": 7.2,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-realtime_refine"
@@ -6249,7 +6249,7 @@
     "modelId": "m-azure-fast-default",
     "testSetId": "ts-mazda-it-it-dt2",
     "metric": "WER",
-    "value": 18.5,
+    "value": 17.6,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-fast_default"
@@ -6303,7 +6303,7 @@
     "modelId": "m-azure-fast-llm",
     "testSetId": "ts-mazda-it-it-dt2",
     "metric": "WER",
-    "value": 20.5,
+    "value": 19.6,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-fast_llm"
@@ -6357,7 +6357,7 @@
     "modelId": "m-azure-fast-mai",
     "testSetId": "ts-mazda-it-it-dt2",
     "metric": "WER",
-    "value": 18.3,
+    "value": 17.3,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-fast_mai"
@@ -6411,7 +6411,7 @@
     "modelId": "m-azure-realtime",
     "testSetId": "ts-mazda-it-it-dt2",
     "metric": "WER",
-    "value": 24.6,
+    "value": 23.6,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-realtime"
@@ -6483,7 +6483,7 @@
     "modelId": "m-azure-realtime-refine",
     "testSetId": "ts-mazda-it-it-dt2",
     "metric": "WER",
-    "value": 18,
+    "value": 17,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-realtime_refine"
@@ -6555,7 +6555,7 @@
     "modelId": "m-azure-fast-default",
     "testSetId": "ts-mazda-it-it-jt1",
     "metric": "WER",
-    "value": 5.5,
+    "value": 4.5,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-fast_default"
@@ -6609,7 +6609,7 @@
     "modelId": "m-azure-fast-llm",
     "testSetId": "ts-mazda-it-it-jt1",
     "metric": "WER",
-    "value": 5.3,
+    "value": 4.4,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-fast_llm"
@@ -6663,7 +6663,7 @@
     "modelId": "m-azure-fast-mai",
     "testSetId": "ts-mazda-it-it-jt1",
     "metric": "WER",
-    "value": 4.2,
+    "value": 3.2,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-fast_mai"
@@ -6717,7 +6717,7 @@
     "modelId": "m-azure-realtime",
     "testSetId": "ts-mazda-it-it-jt1",
     "metric": "WER",
-    "value": 4.2,
+    "value": 3.2,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-realtime"
@@ -6789,7 +6789,7 @@
     "modelId": "m-azure-realtime-refine",
     "testSetId": "ts-mazda-it-it-jt1",
     "metric": "WER",
-    "value": 5.5,
+    "value": 4.5,
     "lowerIsBetter": true,
     "evaluatedAt": "2026-05-08",
     "runId": "run-mazda-it-IT-realtime_refine"
