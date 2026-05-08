@@ -41,6 +41,13 @@ function modelCoversTestset(model, ts) {
   const lang = ts.languages[0]?.code ?? "";
   const region = ts.languages[0]?.region ?? "";
 
+  // Real data testsets — skip synthetic generation.
+  if (ts.id.startsWith("ts-toyota-") || ts.id.startsWith("ts-mazda-")) return false;
+
+  // Real-data-only models — only cover their own testsets (handled above).
+  const realModels = ["m-azure-realtime", "m-azure-realtime-refine", "m-azure-fast-default", "m-azure-fast-llm", "m-azure-fast-mai", "m-azure-embedded"];
+  if (realModels.includes(model.id)) return false;
+
   if (model.id === "m-iflytek-asr-zh") {
     return lang.startsWith("zh") || lang === "ja-JP";
   }

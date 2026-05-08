@@ -39,7 +39,6 @@ export type Region =
   | "Americas"
   | "LATAM"
   | "EMEA"
-  | "MidEast"
   | "Africa"
   | "Greater-China"
   | "Japan-Korea"
@@ -70,6 +69,17 @@ export type AsrMetricKey =
   | "first_byte_latency_ms"
   | "first_byte_latency_p50_ms"
   | "first_byte_latency_p95_ms"
+  | "first_latency_ms"
+  | "first_latency_p90_ms"
+  | "lbl_ms"
+  | "lbl_p90_ms"
+  | "upl_ms"
+  | "upl_p50_ms"
+  | "upl_p90_ms"
+  | "upl_p95_ms"
+  | "CER_p90"
+  | "WER_p90"
+  | "first_byte_latency_p90_ms"
   | "RTF";
 
 export type MetricKey = TtsMetricKey | AsrMetricKey;
@@ -93,13 +103,24 @@ export const TTS_METRICS: MetricSpec[] = [
 export const ASR_STREAMING_METRICS: MetricSpec[] = [
   { key: "WER", label: "WER", unit: "%", lowerIsBetter: true },
   { key: "CER", label: "CER", unit: "%", lowerIsBetter: true },
-  { key: "final_result_latency_ms", label: "Final-Result Latency", unit: "ms", lowerIsBetter: true },
+  { key: "CER_p90", label: "CER P90", unit: "%", lowerIsBetter: true },
+  { key: "WER_p90", label: "WER P90", unit: "%", lowerIsBetter: true },
+  { key: "final_result_latency_ms", label: "Final Lat", unit: "ms", lowerIsBetter: true },
   { key: "final_result_latency_p50_ms", label: "Final P50", unit: "ms", lowerIsBetter: true },
   { key: "final_result_latency_p95_ms", label: "Final P95", unit: "ms", lowerIsBetter: true },
-  { key: "intermediate_result_latency_ms", label: "Intermediate-Result Latency", unit: "ms", lowerIsBetter: true },
-  { key: "first_byte_latency_ms", label: "First-Byte Latency", unit: "ms", lowerIsBetter: true },
-  { key: "first_byte_latency_p50_ms", label: "First-Byte P50", unit: "ms", lowerIsBetter: true },
-  { key: "first_byte_latency_p95_ms", label: "First-Byte P95", unit: "ms", lowerIsBetter: true },
+  { key: "intermediate_result_latency_ms", label: "Intermed Lat", unit: "ms", lowerIsBetter: true },
+  { key: "first_byte_latency_ms", label: "First Lat", unit: "ms", lowerIsBetter: true },
+  { key: "first_byte_latency_p50_ms", label: "First Lat", unit: "ms", lowerIsBetter: true },
+  { key: "first_byte_latency_p90_ms", label: "First Lat P90", unit: "ms", lowerIsBetter: true },
+  { key: "first_byte_latency_p95_ms", label: "First Lat P95", unit: "ms", lowerIsBetter: true },
+  { key: "first_latency_ms", label: "First Lat", unit: "ms", lowerIsBetter: true },
+  { key: "first_latency_p90_ms", label: "First Lat P90", unit: "ms", lowerIsBetter: true },
+  { key: "lbl_ms", label: "LBL", unit: "ms", lowerIsBetter: true },
+  { key: "lbl_p90_ms", label: "LBL P90", unit: "ms", lowerIsBetter: true },
+  { key: "upl_ms", label: "UPL", unit: "ms", lowerIsBetter: true },
+  { key: "upl_p50_ms", label: "UPL P50", unit: "ms", lowerIsBetter: true },
+  { key: "upl_p90_ms", label: "UPL P90", unit: "ms", lowerIsBetter: true },
+  { key: "upl_p95_ms", label: "UPL P95", unit: "ms", lowerIsBetter: true },
   { key: "RTF", label: "RTF", unit: "", lowerIsBetter: true },
 ];
 
@@ -124,6 +145,8 @@ export interface TestSet {
   languages: LanguageCoverage[];
   scenario: Scenario;
   customer: string;
+  metrics?: MetricKey[];
+  seed?: boolean;
   allowsThirdPartyEndpoints: boolean;
   submittedBy: string;
   approvedAt: string;
@@ -169,3 +192,7 @@ export function metricsFor(taskType: TaskType, asrMode?: AsrMode): MetricSpec[] 
   if (taskType === "TTS") return TTS_METRICS;
   return asrMode === "batch" ? ASR_BATCH_METRICS : ASR_STREAMING_METRICS;
 }
+
+export const ALL_METRIC_MAP: Map<MetricKey, MetricSpec> = new Map(
+  [...TTS_METRICS, ...ASR_STREAMING_METRICS, ...ASR_BATCH_METRICS].map(m => [m.key, m]),
+);

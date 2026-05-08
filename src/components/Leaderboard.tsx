@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
-  type HwArchitecture,
+  ALL_METRIC_MAP,
   type LanguageTier,
   type MetricKey,
   type MetricSpec,
@@ -9,7 +9,6 @@ import {
   type ModelDeployment,
   type Region,
   type Result,
-  type Runtime,
   type Scenario,
   type TaskType,
   type TestSet,
@@ -38,7 +37,6 @@ const ALL_REGIONS: Region[] = [
   "Americas",
   "LATAM",
   "EMEA",
-  "MidEast",
   "Africa",
   "Greater-China",
   "Japan-Korea",
@@ -48,59 +46,6 @@ const ALL_REGIONS: Region[] = [
 
 const ALL_TIERS: LanguageTier[] = ["tier-1", "tier-2", "tier-3"];
 
-// Curated testing-hardware catalog covering server CPUs/GPUs, edge GPUs,
-// automotive SoCs, and mobile/on-device SoCs. Used as seeds; any chipset
-// present in models.json is also surfaced automatically.
-const KNOWN_CHIPSETS: string[] = [
-  // Server / datacenter GPUs
-  "NVIDIA H100",
-  "NVIDIA A100",
-  "NVIDIA V100",
-  "NVIDIA L40S",
-  "AMD MI300X",
-  // Server / datacenter CPUs
-  "Intel Xeon Platinum 8480+",
-  "Intel Xeon Gold 6430",
-  "AMD EPYC 9654",
-  "AMD EPYC 7763",
-  // Client / workstation CPUs with AI accel
-  "Intel Core Ultra 7 155H",
-  "AMD Ryzen AI 9 HX 370",
-  // Edge / embedded GPUs
-  "NVIDIA Jetson Orin",
-  "NVIDIA Jetson Xavier",
-  // Automotive SoCs
-  "Qualcomm SA8295P",
-  "Qualcomm SA8155P",
-  "Qualcomm SA820",
-  "Renesas R-Car V4H",
-  "NXP i.MX 9",
-  // Mobile / on-device
-  "Snapdragon 8 Gen 3",
-  "Snapdragon 8 Pro",
-  "MediaTek Dimensity 9300",
-  "Apple M3",
-  "Apple A17 Pro",
-];
-
-const ALL_RUNTIMES: Runtime[] = [
-  "CUDA",
-  "TensorRT",
-  "ROCm",
-  "Qualcomm-AI-Engine",
-  "Hexagon",
-  "CoreML",
-  "NNAPI",
-  "TFLite",
-  "ONNX-Runtime",
-  "OpenVINO",
-  "WebGPU",
-  "WebNN",
-  "CPU-native",
-];
-
-// "hybrid" removed per product requirement — unused in practice.
-const ALL_ARCH: HwArchitecture[] = ["CPU", "GPU", "NPU", "DSP", "TPU"];
 
 // Per-test-set columns show only the PRIMARY metric (WER for ASR, MOS for TTS).
 // The Average/summary block shows the full metric suite so latency P50/P95
@@ -111,8 +56,8 @@ const TTS_PRIMARY: MetricSpec[] = [
 const TTS_SUMMARY: MetricSpec[] = [
   { key: "MOS", label: "MOS", unit: "", lowerIsBetter: false },
   { key: "pronunciation_acc", label: "Acc", unit: "", lowerIsBetter: false },
-  { key: "first_byte_latency_p50_ms", label: "FBL P50", unit: "ms", lowerIsBetter: true },
-  { key: "first_byte_latency_p95_ms", label: "FBL P95", unit: "ms", lowerIsBetter: true },
+  { key: "first_byte_latency_p50_ms", label: "First Lat P50", unit: "ms", lowerIsBetter: true },
+  { key: "first_byte_latency_p95_ms", label: "First Lat P95", unit: "ms", lowerIsBetter: true },
   { key: "RTF", label: "RTF", unit: "", lowerIsBetter: true },
 ];
 
@@ -124,14 +69,56 @@ function prefersCerFor(t: TestSet): boolean {
   const lang = t.languages[0]?.code ?? "";
   return lang.startsWith("zh") || lang.startsWith("ja") || lang.startsWith("ko");
 }
+
+function metricsForTestSet(t: TestSet, taskType: TaskType): MetricSpec[] {
+  if (t.metrics?.length) {
+    return t.metrics.map(k => ALL_METRIC_MAP.get(k)!).filter(Boolean);
+  }
+  return taskType === "TTS" ? TTS_PRIMARY : ASR_PRIMARY;
+}
+
+const P90_COMPANION: Partial<Record<MetricKey, MetricKey>> = {
+  CER: "CER_p90" as MetricKey,
+  WER: "WER_p90" as MetricKey,
+  first_byte_latency_p50_ms: "first_byte_latency_p90_ms" as MetricKey,
+  first_latency_ms: "first_latency_p90_ms" as MetricKey,
+  lbl_ms: "lbl_p90_ms" as MetricKey,
+  upl_ms: "upl_p90_ms" as MetricKey,
+  final_result_latency_p50_ms: "final_result_latency_p95_ms" as MetricKey,
+};
 const ASR_SUMMARY: MetricSpec[] = [
   { key: "WER", label: "WER/CER", unit: "%", lowerIsBetter: true },
+  { key: "first_latency_ms", label: "First Lat", unit: "ms", lowerIsBetter: true },
   { key: "first_byte_latency_p50_ms", label: "FBL P50", unit: "ms", lowerIsBetter: true },
-  { key: "first_byte_latency_p95_ms", label: "FBL P95", unit: "ms", lowerIsBetter: true },
-  { key: "final_result_latency_p50_ms", label: "Final P50", unit: "ms", lowerIsBetter: true },
-  { key: "final_result_latency_p95_ms", label: "Final P95", unit: "ms", lowerIsBetter: true },
+  { key: "upl_ms", label: "UPL", unit: "ms", lowerIsBetter: true },
   { key: "RTF", label: "RTF", unit: "", lowerIsBetter: true },
 ];
+
+const METRIC_DEFINITIONS: Partial<Record<MetricKey, string>> = {
+  WER: "Word Error Rate — percentage of incorrectly transcribed words",
+  CER: "Character Error Rate — percentage of incorrectly transcribed characters",
+  CER_p90: "CER at the 90th percentile across samples",
+  MOS: "Mean Opinion Score — subjective quality rating (1–5 scale)",
+  RTF: "Real-Time Factor — processing time / audio duration (< 1 = faster than real-time)",
+  pronunciation_acc: "Pronunciation accuracy — fraction of correctly pronounced phonemes",
+  first_byte_latency_ms: "First Byte Latency — time until first audio/text byte is received",
+  first_byte_latency_p50_ms: "First Byte Latency P50 — median time to first byte",
+  first_byte_latency_p90_ms: "First Byte Latency P90 — 90th percentile time to first byte",
+  first_byte_latency_p95_ms: "First Byte Latency P95 — 95th percentile time to first byte",
+  first_latency_ms: "First Latency — time from request to first recognized result",
+  final_result_latency_ms: "Final Result Latency — time from end of speech to final transcript",
+  final_result_latency_p50_ms: "Final Result Latency P50 — median time to final result",
+  final_result_latency_p95_ms: "Final Result Latency P95 — 95th percentile time to final result",
+  intermediate_result_latency_ms: "Intermediate Result Latency — time to partial/hypothesis result",
+  upl_ms: "User-Perceived Latency — end-to-end latency as experienced by the user",
+  upl_p50_ms: "UPL P50 — median user-perceived latency",
+  upl_p90_ms: "UPL P90 — 90th percentile user-perceived latency",
+  upl_p95_ms: "UPL P95 — 95th percentile user-perceived latency",
+  lbl_ms: "LBL (Last-final Beyond Last-chunk) — time from last uploaded byte to final result; can be negative when streaming runs ahead",
+  lbl_p90_ms: "LBL P90 — 90th percentile last-final beyond last-chunk latency",
+  first_latency_p90_ms: "First Latency P90 — 90th percentile time to first recognized result",
+  WER_p90: "WER at the 90th percentile across samples",
+};
 
 const DEPLOYMENT_TONE: Record<ModelDeployment, "azure" | "green" | "violet" | "indigo"> = {
   "cloud-api": "azure",
@@ -229,18 +216,6 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
     regions: new Set(getCsv("region") as Region[]),
     codes: new Set(getCsv("locale")),
   }));
-  const [deployments, setDeployments] = useState<Set<ModelDeployment>>(
-    () => new Set(getCsv("deployment") as ModelDeployment[]),
-  );
-  const [hwArchs, setHwArchs] = useState<Set<HwArchitecture>>(
-    () => new Set(getCsv("arch") as HwArchitecture[]),
-  );
-  const [chipsets, setChipsets] = useState<Set<string>>(
-    () => new Set(getCsv("chipset")),
-  );
-  const [runtimes, setRuntimes] = useState<Set<Runtime>>(
-    () => new Set(getCsv("runtime") as Runtime[]),
-  );
 
   // Write current filter state back to the URL (shallow, no reload).
   useEffect(() => {
@@ -257,14 +232,10 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
     setCsv("tier", lang.tiers);
     setCsv("region", lang.regions);
     setCsv("locale", lang.codes);
-    setCsv("deployment", deployments);
-    setCsv("arch", hwArchs);
-    setCsv("chipset", chipsets);
-    setCsv("runtime", runtimes);
     const qs = params.toString();
     const url = window.location.pathname + (qs ? `?${qs}` : "") + window.location.hash;
     window.history.replaceState(null, "", url);
-  }, [urlPrefix, scenarios, customers, lang, deployments, hwArchs, chipsets, runtimes]);
+  }, [urlPrefix, scenarios, customers, lang]);
 
   const [sort, setSort] = useState<SortState>({
     columnId: `avg:${primaryMetric.key}`,
@@ -325,29 +296,13 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
       .sort((a, b) => a.code.localeCompare(b.code));
   }, [taskTestSets, lang.tiers, lang.regions]);
 
-  const presentDeployments = useMemo(() => {
-    const all: ModelDeployment[] = ["cloud-api", "cloud-self-hosted", "on-device", "on-prem-server"];
-    return all.filter((d) => taskModels.some((m) => m.deployment === d));
-  }, [taskModels]);
 
-  const presentArchs = useMemo(
-    () => ALL_ARCH.filter((a) => taskModels.some((m) => m.hardware?.architecture === a)),
-    [taskModels],
-  );
+  const [transposed, setTransposed] = useState(false);
+  const [hiddenModels, setHiddenModels] = useState<Set<string>>(() => new Set());
+  const [hiddenMetrics, setHiddenMetrics] = useState<Set<MetricKey>>(() => new Set(["lbl_ms", "lbl_p90_ms"] as MetricKey[]));
 
-  const presentChipsets = useMemo(() => {
-    const s = new Set<string>();
-    for (const m of taskModels) if (m.hardware?.chipset) s.add(m.hardware.chipset);
-    // Keep the curated ordering for seeded chipsets, then any extras alphabetically.
-    const curated = KNOWN_CHIPSETS.filter((c) => s.has(c));
-    const extras = Array.from(s).filter((c) => !KNOWN_CHIPSETS.includes(c)).sort();
-    return [...curated, ...extras];
-  }, [taskModels]);
-
-  const presentRuntimes = useMemo(
-    () => ALL_RUNTIMES.filter((r) => taskModels.some((m) => m.hardware?.runtime === r)),
-    [taskModels],
-  );
+  const visibleMetricsFor = (t: TestSet): MetricSpec[] =>
+    metricsForTestSet(t, taskType).filter(m => !hiddenMetrics.has(m.key));
 
   const filteredTestSets = useMemo(() => {
     return taskTestSets.filter((t) => {
@@ -360,13 +315,10 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
 
   const filteredModels = useMemo(() => {
     return taskModels.filter((m) => {
-      if (deployments.size > 0 && !deployments.has(m.deployment)) return false;
-      if (hwArchs.size > 0 && (!m.hardware || !hwArchs.has(m.hardware.architecture))) return false;
-      if (chipsets.size > 0 && (!m.hardware?.chipset || !chipsets.has(m.hardware.chipset))) return false;
-      if (runtimes.size > 0 && (!m.hardware || !runtimes.has(m.hardware.runtime))) return false;
+      if (hiddenModels.has(m.id)) return false;
       return true;
     });
-  }, [taskModels, deployments, hwArchs, chipsets, runtimes]);
+  }, [taskModels, hiddenModels]);
 
   // CJK locales are scored by CER; everything else by WER. Because the UI
   // renders a single "WER/CER" column, we fold CER values into the WER key
@@ -383,7 +335,6 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
   // (modelId|testSetId|metricKey) → result.value
   const cellValue = useMemo(() => {
     const map = new Map<string, number>();
-    // First pass: everything except WER (so CER can overwrite WER cleanly).
     for (const r of results) {
       if (r.metric === "WER") {
         if (!testSetPrefersCer.get(r.testSetId)) {
@@ -393,6 +344,7 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
         if (testSetPrefersCer.get(r.testSetId)) {
           map.set(`${r.modelId}|${r.testSetId}|WER`, r.value);
         }
+        map.set(`${r.modelId}|${r.testSetId}|CER`, r.value);
       } else {
         map.set(`${r.modelId}|${r.testSetId}|${r.metric}`, r.value);
       }
@@ -400,8 +352,9 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
     return map;
   }, [results, testSetPrefersCer]);
 
-  // Group test sets: scenario → customer → testsets[]
-  type CustomerGroup = { customer: string; testsets: TestSet[] };
+  // Group test sets: scenario → customer → locale → testsets[]
+  type LocaleGroup = { locale: string; testsets: TestSet[] };
+  type CustomerGroup = { customer: string; locales: LocaleGroup[]; testsets: TestSet[] };
   type ScenarioGroup = { scenario: Scenario; customers: CustomerGroup[]; total: number };
   const columnGroups = useMemo<ScenarioGroup[]>(() => {
     const byScenario = new Map<Scenario, Map<string, TestSet[]>>();
@@ -415,17 +368,30 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
     const groups: ScenarioGroup[] = [];
     for (const [sc, byCustomer] of byScenario) {
       const customersArr = [...byCustomer.entries()]
-        .map(([c, ts]) => ({ customer: c, testsets: ts.sort((a, b) => a.name.localeCompare(b.name)) }))
+        .map(([c, ts]) => {
+          // Group by locale within customer
+          const byLocale = new Map<string, TestSet[]>();
+          for (const t of ts) {
+            const loc = t.languages[0]?.code ?? "other";
+            const arr = byLocale.get(loc) ?? [];
+            arr.push(t);
+            byLocale.set(loc, arr);
+          }
+          const locales = [...byLocale.entries()]
+            .map(([loc, lts]) => ({ locale: loc, testsets: lts.sort((a, b) => a.name.localeCompare(b.name)) }))
+            .sort((a, b) => a.locale.localeCompare(b.locale));
+          return { customer: c, locales, testsets: locales.flatMap(l => l.testsets) };
+        })
         .sort((a, b) => a.customer.localeCompare(b.customer));
       groups.push({
         scenario: sc,
         customers: customersArr,
-        total: customersArr.reduce((n, c) => n + c.testsets.length * cellMetrics.length, 0),
+        total: customersArr.reduce((n, c) => n + c.testsets.reduce((s, t) => s + visibleMetricsFor(t).length, 0), 0),
       });
     }
     groups.sort((a, b) => a.scenario.localeCompare(b.scenario));
     return groups;
-  }, [filteredTestSets, cellMetrics.length]);
+  }, [filteredTestSets, taskType, hiddenMetrics]);
 
   const orderedTestSets = useMemo(
     () => columnGroups.flatMap((g) => g.customers.flatMap((c) => c.testsets)),
@@ -479,14 +445,31 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
     return arr;
   }, [filteredModels, sort, summaryMetrics, cellValue, orderedTestSets, primaryMetric]);
 
+  const visibleModels = useMemo(() => {
+    return sortedModels.filter((mdl) =>
+      orderedTestSets.some((t) =>
+        visibleMetricsFor(t).some((m) =>
+          cellValue.has(`${mdl.id}|${t.id}|${m.key}`),
+        ),
+      ),
+    );
+  }, [sortedModels, orderedTestSets, taskType, cellValue]);
+
+  const visibleSummaryMetrics = useMemo(() => {
+    return summaryMetrics.filter((m) =>
+      !hiddenMetrics.has(m.key) && visibleModels.some((mdl) => avgFor(mdl, m) != null),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [summaryMetrics, visibleModels, orderedTestSets, cellValue, hiddenMetrics]);
+
   // Per-cell-column min/max for heat-map coloring
   const columnStats = useMemo(() => {
     const stats = new Map<string, { min: number; max: number }>();
     for (const t of orderedTestSets) {
-      for (const m of cellMetrics) {
+      for (const m of visibleMetricsFor(t)) {
         const key = `${t.id}|${m.key}`;
         const vals: number[] = [];
-        for (const model of sortedModels) {
+        for (const model of visibleModels) {
           const v = cellValue.get(`${model.id}|${t.id}|${m.key}`);
           if (typeof v === "number") vals.push(v);
         }
@@ -495,14 +478,14 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
       }
     }
     return stats;
-  }, [orderedTestSets, sortedModels, cellMetrics, cellValue]);
+  }, [orderedTestSets, visibleModels, taskType, cellValue]);
 
   // Per-avg-column min/max
   const avgStats = useMemo(() => {
     const stats = new Map<MetricKey, { min: number; max: number }>();
     for (const m of summaryMetrics) {
       const vals: number[] = [];
-      for (const model of sortedModels) {
+      for (const model of visibleModels) {
         const a = avgFor(model, m);
         if (a != null) vals.push(a);
       }
@@ -511,17 +494,53 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
     }
     return stats;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [summaryMetrics, sortedModels, orderedTestSets, cellValue]);
+  }, [summaryMetrics, visibleModels, orderedTestSets, cellValue]);
 
-  function tone(value: number, stats: { min: number; max: number } | undefined, lowerIsBetter: boolean): string {
-    if (!stats || stats.min === stats.max) return "";
+  const [colorMode, setColorMode] = useState<"relative" | "release-bar">("relative");
+
+  function releaseBarGradient(v: number, greenMax: number, yellowMax: number, redMin: number): React.CSSProperties | null {
+    const G = [34, 197, 94];
+    const Y = [234, 179, 8];
+    const R = [239, 68, 68];
+    if (v <= greenMax) return { backgroundColor: `rgba(${G[0]},${G[1]},${G[2]},0.18)` };
+    if (v >= redMin) return { backgroundColor: `rgba(${R[0]},${R[1]},${R[2]},0.22)` };
+    if (v <= yellowMax) {
+      const t = (v - greenMax) / (yellowMax - greenMax);
+      const r = Math.round(G[0] + t * (Y[0] - G[0]));
+      const g = Math.round(G[1] + t * (Y[1] - G[1]));
+      const b = Math.round(G[2] + t * (Y[2] - G[2]));
+      return { backgroundColor: `rgba(${r},${g},${b},0.18)` };
+    }
+    const t = (v - yellowMax) / (redMin - yellowMax);
+    const r = Math.round(Y[0] + t * (R[0] - Y[0]));
+    const g = Math.round(Y[1] + t * (R[1] - Y[1]));
+    const b = Math.round(Y[2] + t * (R[2] - Y[2]));
+    return { backgroundColor: `rgba(${r},${g},${b},${0.18 + t * 0.04})` };
+  }
+
+  function releaseBar(value: number, metric?: MetricKey): React.CSSProperties | null {
+    // WER: ≤5% green, 5-20% green→yellow, 20-30% yellow→red, ≥30% red
+    if (metric === "WER") return releaseBarGradient(value, 5, 20, 30);
+    // First Latency: <1000 green, 1000-2000 green→yellow→red, ≥2000 red
+    if (metric === "first_latency_ms") return releaseBarGradient(value, 1000, 1500, 2000);
+    // UPL: <800 green, 800-1500 green→yellow→red, ≥1500 red
+    if (metric === "upl_ms") return releaseBarGradient(value, 800, 1150, 1500);
+    return null;
+  }
+
+  function tone(value: number, stats: { min: number; max: number } | undefined, lowerIsBetter: boolean, metric?: MetricKey): React.CSSProperties {
+    if (colorMode === "release-bar") {
+      const bar = releaseBar(value, metric);
+      if (bar) return bar;
+    }
+    if (!stats || stats.min === stats.max) return {};
     const span = stats.max - stats.min;
     const pos = lowerIsBetter ? (value - stats.min) / span : (stats.max - value) / span;
-    if (pos < 0.15) return "bg-emerald-50";
-    if (pos < 0.4) return "bg-emerald-50/50";
-    if (pos > 0.85) return "bg-rose-50";
-    if (pos > 0.6) return "bg-amber-50";
-    return "";
+    if (pos < 0.15) return { backgroundColor: "rgba(236,253,245,1)" };
+    if (pos < 0.4) return { backgroundColor: "rgba(236,253,245,0.5)" };
+    if (pos > 0.85) return { backgroundColor: "rgba(255,241,242,1)" };
+    if (pos > 0.6) return { backgroundColor: "rgba(255,251,235,1)" };
+    return {};
   }
 
   function onHeaderClick(columnId: string, lowerIsBetter: boolean) {
@@ -558,26 +577,6 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
       label: `Lang: ${code}`,
       clear: () => setLang((prev) => ({ ...prev, codes: removeFromSet(prev.codes, code) })),
     });
-  for (const d of deployments)
-    activeFilterChips.push({
-      label: `Deployment: ${d}`,
-      clear: () => setDeployments((prev) => { const n = new Set(prev); n.delete(d); return n; }),
-    });
-  for (const h of hwArchs)
-    activeFilterChips.push({
-      label: `Arch: ${h}`,
-      clear: () => setHwArchs((prev) => { const n = new Set(prev); n.delete(h); return n; }),
-    });
-  for (const c of chipsets)
-    activeFilterChips.push({
-      label: `Chipset: ${c}`,
-      clear: () => setChipsets((prev) => { const n = new Set(prev); n.delete(c); return n; }),
-    });
-  for (const r of runtimes)
-    activeFilterChips.push({
-      label: `Runtime: ${r}`,
-      clear: () => setRuntimes((prev) => { const n = new Set(prev); n.delete(r); return n; }),
-    });
 
   const defaultSortHint =
     taskType === "TTS"
@@ -594,10 +593,6 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
           setScenarios(new Set());
           setCustomers(new Set());
           setLang(emptyLangFilter());
-          setDeployments(new Set());
-          setHwArchs(new Set());
-          setChipsets(new Set());
-          setRuntimes(new Set());
         }}
         scenarios={scenarios}
         presentScenarios={presentScenarios}
@@ -612,18 +607,12 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
         presentTiers={presentTiers}
         presentRegions={presentRegions}
         presentLocales={presentLocales}
-        deployments={deployments}
-        presentDeployments={presentDeployments}
-        toggleDeployment={(d) => setDeployments((prev) => toggleInSet(prev, d))}
-        hwArchs={hwArchs}
-        presentArchs={presentArchs}
-        toggleHwArch={(h) => setHwArchs((prev) => toggleInSet(prev, h))}
-        chipsets={chipsets}
-        toggleChipset={(c) => setChipsets((prev) => toggleInSet(prev, c))}
-        presentChipsets={presentChipsets}
-        runtimes={runtimes}
-        presentRuntimes={presentRuntimes}
-        toggleRuntime={(r) => setRuntimes((prev) => toggleInSet(prev, r))}
+        hiddenModels={hiddenModels}
+        allModels={taskModels.filter(m => orderedTestSets.some(t => visibleMetricsFor(t).some(mt => cellValue.has(`${m.id}|${t.id}|${mt.key}`))))}
+        toggleModel={(id) => setHiddenModels((prev) => toggleInSet(prev, id))}
+        hiddenMetrics={hiddenMetrics}
+        allMetrics={Array.from(new Set(filteredTestSets.flatMap(t => metricsForTestSet(t, taskType).map(m => m.key))))}
+        toggleMetric={(k) => setHiddenMetrics((prev) => toggleInSet(prev, k))}
       />
 
       <div className="rounded-lg border border-slate-200 bg-white p-3 shadow-sm">
@@ -631,25 +620,57 @@ export function Leaderboard({ taskType, testsets, models, results }: Props) {
           <h2 className="text-sm font-semibold text-slate-900">
             {taskType} leaderboard
           </h2>
-          <span className="text-xs text-slate-500">
-            {sortedModels.length} models × {orderedTestSets.length} test sets · {defaultSortHint}
+          <span className="flex items-center gap-3 text-xs text-slate-500">
+            <label className="flex items-center gap-1.5 cursor-pointer select-none">
+              <span className="text-slate-600 font-medium">Color:</span>
+              <button
+                type="button"
+                onClick={() => setColorMode(colorMode === "relative" ? "release-bar" : "relative")}
+                className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${colorMode === "relative" ? "bg-slate-700 text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}
+              >Relative</button>
+              <button
+                type="button"
+                onClick={() => setColorMode(colorMode === "release-bar" ? "relative" : "release-bar")}
+                className={`rounded px-1.5 py-0.5 text-[10px] font-semibold ${colorMode === "release-bar" ? "bg-slate-700 text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200"}`}
+              >Release Bar</button>
+            </label>
+            {visibleModels.length} models × {orderedTestSets.length} test sets · {defaultSortHint}
           </span>
         </div>
-        <div>
-          <MatrixTable
-            columnGroups={columnGroups}
-            models={sortedModels}
-            orderedTestSets={orderedTestSets}
-            cellMetrics={cellMetrics}
-            summaryMetrics={summaryMetrics}
-            cellValue={cellValue}
-            avgFor={avgFor}
-            columnStats={columnStats}
-            avgStats={avgStats}
-            tone={tone}
-            sort={sort}
-            onHeaderClick={onHeaderClick}
-          />
+        <div className="relative">
+          {transposed ? (
+            <TransposedTable
+              columnGroups={columnGroups}
+              models={visibleModels}
+              orderedTestSets={orderedTestSets}
+              cellValue={cellValue}
+              tone={tone}
+              columnStats={columnStats}
+              metricsFor={visibleMetricsFor}
+              avgFor={avgFor}
+              summaryMetrics={visibleSummaryMetrics}
+              avgStats={avgStats}
+              onToggleTranspose={() => setTransposed(v => !v)}
+              sort={sort}
+              onHeaderClick={onHeaderClick}
+            />
+          ) : (
+            <MatrixTable
+              columnGroups={columnGroups}
+              models={visibleModels}
+              orderedTestSets={orderedTestSets}
+              summaryMetrics={visibleSummaryMetrics}
+              cellValue={cellValue}
+              avgFor={avgFor}
+              columnStats={columnStats}
+              avgStats={avgStats}
+              tone={tone}
+              sort={sort}
+              onHeaderClick={onHeaderClick}
+              metricsFor={visibleMetricsFor}
+              onToggleTranspose={() => setTransposed(v => !v)}
+            />
+          )}
         </div>
       </div>
     </section>
@@ -660,7 +681,6 @@ function MatrixTable({
   columnGroups,
   models,
   orderedTestSets,
-  cellMetrics,
   summaryMetrics,
   cellValue,
   avgFor,
@@ -669,19 +689,22 @@ function MatrixTable({
   tone,
   sort,
   onHeaderClick,
+  metricsFor,
+  onToggleTranspose,
 }: {
-  columnGroups: Array<{ scenario: Scenario; customers: Array<{ customer: string; testsets: TestSet[] }>; total: number }>;
+  columnGroups: Array<{ scenario: Scenario; customers: Array<{ customer: string; locales: Array<{ locale: string; testsets: TestSet[] }>; testsets: TestSet[] }>; total: number }>;
   models: Model[];
   orderedTestSets: TestSet[];
-  cellMetrics: MetricSpec[];
   summaryMetrics: MetricSpec[];
   cellValue: Map<string, number>;
   avgFor: (m: Model, sp: MetricSpec) => number | null;
   columnStats: Map<string, { min: number; max: number }>;
   avgStats: Map<MetricKey, { min: number; max: number }>;
-  tone: (v: number, s: { min: number; max: number } | undefined, lib: boolean) => string;
+  tone: (v: number, s: { min: number; max: number } | undefined, lib: boolean, metric?: MetricKey) => React.CSSProperties;
   sort: SortState;
   onHeaderClick: (id: string, lowerIsBetter: boolean) => void;
+  metricsFor: (t: TestSet) => MetricSpec[];
+  onToggleTranspose: () => void;
 }) {
   if (orderedTestSets.length === 0) {
     return <p className="px-4 py-12 text-center text-sm text-slate-500">No test sets match the current filters.</p>;
@@ -693,7 +716,7 @@ function MatrixTable({
   // Fixed column widths (in px) so the header and every row line up cleanly.
   const CELL_W = 56;      // per test-set × cell-metric column
   const SUMMARY_W = 52;   // per summary-metric column
-  const cellColCount = orderedTestSets.length * cellMetrics.length;
+  const cellColCount = orderedTestSets.reduce((n, t) => n + metricsFor(t).length, 0);
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -732,13 +755,20 @@ function MatrixTable({
         {/* Scenario row */}
         <tr>
           <th
-            rowSpan={3}
+            rowSpan={5}
             className={`${stickyNumHead} w-12 border-b border-r border-slate-200 bg-white px-2 py-2 text-center text-xs uppercase tracking-wide text-slate-500`}
           >
-            #
+            <button
+              type="button"
+              onClick={onToggleTranspose}
+              title="Switch to testsets-as-rows"
+              className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+            </button>
           </th>
           <th
-            rowSpan={3}
+            rowSpan={5}
                         className={`${stickyModelHead} min-w-[316px] border-b border-r border-slate-200 bg-white px-3 py-2 pr-4 text-left`}
           >
             <SortableHeader
@@ -777,7 +807,7 @@ function MatrixTable({
             g.customers.map((c) => (
               <th
                 key={`cust-${g.scenario}-${c.customer}`}
-                colSpan={c.testsets.length * cellMetrics.length}
+                colSpan={c.testsets.reduce((n, t) => n + metricsFor(t).length, 0)}
                 className="border-b border-r border-slate-200 bg-slate-100 px-3 py-1 text-left text-xs font-semibold text-slate-700"
               >
                 {c.customer}
@@ -786,9 +816,29 @@ function MatrixTable({
           )}
         </tr>
 
-        {/* Test set + sub-metric row */}
+        {/* Locale row */}
         <tr>
-          {/* Summary headers (leftmost) */}
+          <th
+            colSpan={summaryMetrics.length}
+            className="border-b border-r-2 border-r-slate-300 border-b-azure-200 bg-azure-50/20 px-3 py-0.5 text-center text-[10px] text-azure-700"
+          />
+          {columnGroups.flatMap((g) =>
+            g.customers.flatMap((c) =>
+              c.locales.map((loc) => (
+                <th
+                  key={`loc-${g.scenario}-${c.customer}-${loc.locale}`}
+                  colSpan={loc.testsets.reduce((n, t) => n + metricsFor(t).length, 0)}
+                  className="border-b border-r border-slate-200 bg-slate-50 px-2 py-0.5 text-center text-[10px] font-medium text-slate-600"
+                >
+                  {loc.locale}
+                </th>
+              )),
+            ),
+          )}
+        </tr>
+
+        {/* Test set name row */}
+        <tr>
           {summaryMetrics.map((m, sIdx) => {
             const colId = `avg:${m.key}`;
             const isActive = sort.columnId === colId;
@@ -796,68 +846,75 @@ function MatrixTable({
             return (
               <th
                 key={`avg-${m.key}`}
-                className={`h-44 border-b ${lastSummary ? "border-r-2 border-r-slate-300" : "border-r border-azure-200"} bg-azure-50/40 p-0 align-bottom`}
+                rowSpan={2}
+                className={`border-b ${lastSummary ? "border-r-2 border-r-slate-300" : "border-r border-azure-200"} bg-azure-50/40 px-1 py-1 text-center align-bottom`}
               >
-                <div className="flex h-full w-full flex-col items-center justify-end gap-1 pb-2">
-                  <button
-                    type="button"
-                    onClick={() => onHeaderClick(colId, m.lowerIsBetter)}
-                    className="text-left text-[11px] font-semibold text-azure-900 hover:text-azure-700"
-                    style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-                  >
-                    {m.label}{m.unit ? ` (${m.unit})` : ""}
-                  </button>
-                  <div
-                    className={`mt-1 cursor-pointer rounded px-1 text-[10px] font-semibold uppercase tracking-wide ${
-                      isActive ? "bg-slate-900 text-white" : "text-azure-800 hover:bg-azure-100"
-                    }`}
-                    onClick={() => onHeaderClick(colId, m.lowerIsBetter)}
-                  >
-                    avg
-                    {isActive && <span className="ml-0.5">{sort.asc ? "↑" : "↓"}</span>}
-                  </div>
+                <div
+                  className={`cursor-pointer rounded px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                    isActive ? "bg-slate-900 text-white" : "text-azure-800 hover:bg-azure-100"
+                  }`}
+                  onClick={() => onHeaderClick(colId, m.lowerIsBetter)}
+                >
+                  {m.label}
+                  {isActive && <span className="ml-0.5">{sort.asc ? "↑" : "↓"}</span>}
                 </div>
               </th>
             );
           })}
-          {orderedTestSets.flatMap((t) =>
-            cellMetrics.map((m, idx) => {
+          {orderedTestSets.map((t) => {
+            const tsMetrics = metricsFor(t);
+            return (
+              <th
+                key={`tsname-${t.id}`}
+                colSpan={tsMetrics.length}
+                className="h-32 border-b border-r border-slate-200 bg-slate-50 p-0 align-bottom"
+              >
+                <HoverTip content={<TestSetTooltipContent t={t} />} placement="below">
+                  <div className="flex h-full w-full flex-col items-center justify-end gap-0 pb-1">
+                    <span
+                      className="text-[11px] font-medium text-slate-700"
+                      title={t.name}
+                      style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", maxHeight: 110, overflow: "hidden", textOverflow: "ellipsis" }}
+                    >
+                      {t.name.replace(new RegExp(`^${t.customer}\\s*`, "i"), "")}
+                    </span>
+                  </div>
+                </HoverTip>
+              </th>
+            );
+          })}
+        </tr>
+
+        {/* Metric row */}
+        <tr>
+          {orderedTestSets.flatMap((t) => {
+            const tsMetrics = metricsFor(t);
+            return tsMetrics.map((m, idx) => {
               const colId = `cell:${t.id}:${m.key}`;
               const isActive = sort.columnId === colId;
-              const lastInSet = idx === cellMetrics.length - 1;
+              const lastInSet = idx === tsMetrics.length - 1;
+              const label = m.key === "WER" ? (prefersCerFor(t) ? "CER" : "WER") : m.label;
+              const def = METRIC_DEFINITIONS[m.key];
               return (
                 <th
                   key={`${t.id}-${m.key}`}
-                  className={`h-44 border-b ${lastInSet ? "border-r border-r-slate-200" : "border-r border-slate-100"} bg-white p-0 align-bottom`}
+                  className={`border-b ${lastInSet ? "border-r border-r-slate-200" : "border-r border-slate-100"} bg-white px-1 py-1 text-center`}
                 >
-                  <HoverTip content={<TestSetTooltipContent t={t} />} placement="below">
-                    <div className="flex h-full w-full flex-col items-center justify-end gap-1 pb-2">
-                      {/* vertical test-set name */}
-                      <button
-                        type="button"
-                        onClick={() => onHeaderClick(colId, m.lowerIsBetter)}
-                        title={t.name}
-                        className="relative flex items-end justify-center text-left text-[11px] font-medium text-slate-700 hover:text-azure-700"
-                        style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-                      >
-                        <span className="max-h-[110px] truncate">{t.name}</span>
-                      </button>
-                      {/* sub-metric label below, horizontal */}
-                      <div
-                        className={`mt-1 cursor-pointer rounded px-1 text-[10px] font-semibold uppercase tracking-wide ${
-                          isActive ? "bg-slate-900 text-white" : "text-slate-500 hover:bg-slate-100"
-                        }`}
-                        onClick={() => onHeaderClick(colId, m.lowerIsBetter)}
-                      >
-                        {m.key === "WER" ? (prefersCerFor(t) ? "CER" : "WER") : m.label}
-                        {isActive && <span className="ml-0.5">{sort.asc ? "↑" : "↓"}</span>}
-                      </div>
+                  <HoverTip content={def ? <span>{def}</span> : <span>{label}</span>} placement="above">
+                    <div
+                      className={`cursor-pointer rounded px-1 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
+                        isActive ? "bg-slate-900 text-white" : "text-slate-500 hover:bg-slate-100"
+                      }`}
+                      onClick={() => onHeaderClick(colId, m.lowerIsBetter)}
+                    >
+                      {label}
+                      {isActive && <span className="ml-0.5">{sort.asc ? "↑" : "↓"}</span>}
                     </div>
                   </HoverTip>
                 </th>
               );
-            }),
-          )}
+            });
+          })}
         </tr>
       </thead>
 
@@ -875,36 +932,43 @@ function MatrixTable({
             </th>
             {summaryMetrics.map((m, sIdx) => {
               const a = avgFor(mdl, m);
+              const p90Key = P90_COMPANION[m.key];
+              const p90Spec = p90Key ? ALL_METRIC_MAP.get(p90Key) : undefined;
+              const p90Avg = p90Spec ? avgFor(mdl, p90Spec) : null;
               const stats = avgStats.get(m.key);
               const lastSummary = sIdx === summaryMetrics.length - 1;
               return (
                 <td
                   key={`avg-${mdl.id}-${m.key}`}
-                  className={`border-b ${lastSummary ? "border-r-2 border-r-slate-300" : "border-r border-azure-200"} bg-azure-50/40 px-2 py-2 text-right font-mono tabular-nums text-xs font-semibold ${
-                    a != null ? tone(a, stats, m.lowerIsBetter) : ""
-                  }`}
+                  className={`border-b ${lastSummary ? "border-r-2 border-r-slate-300" : "border-r border-azure-200"} bg-azure-50/40 px-2 py-1.5 text-right font-mono tabular-nums text-xs font-semibold`}
+                  style={a != null ? tone(a, stats, m.lowerIsBetter, m.key) : undefined}
                 >
                   {a != null ? formatValue(a, m) : <span className="text-slate-300">—</span>}
+                  {p90Avg != null && <div className="text-[9px] font-normal text-slate-400">{formatValue(p90Avg, p90Spec!)}</div>}
                 </td>
               );
             })}
-            {orderedTestSets.flatMap((t) =>
-              cellMetrics.map((m, idx2) => {
+            {orderedTestSets.flatMap((t) => {
+              const tsMetrics = metricsFor(t);
+              return tsMetrics.map((m, idx2) => {
                 const v = cellValue.get(`${mdl.id}|${t.id}|${m.key}`);
+                const p90Key = P90_COMPANION[m.key];
+                const p90Val = p90Key ? cellValue.get(`${mdl.id}|${t.id}|${p90Key}`) : undefined;
+                const p90Spec = p90Key ? ALL_METRIC_MAP.get(p90Key) : undefined;
                 const stats = columnStats.get(`${t.id}|${m.key}`);
-                const lastInSet = idx2 === cellMetrics.length - 1;
+                const lastInSet = idx2 === tsMetrics.length - 1;
                 return (
                   <td
                     key={`${mdl.id}-${t.id}-${m.key}`}
-                    className={`border-b ${lastInSet ? "border-r border-r-slate-200" : "border-r border-slate-100"} px-2 py-2 text-right font-mono tabular-nums text-xs ${
-                      v != null ? tone(v, stats, m.lowerIsBetter) : ""
-                    }`}
+                    className={`border-b ${lastInSet ? "border-r border-r-slate-200" : "border-r border-slate-100"} px-2 py-1.5 text-right font-mono tabular-nums text-xs`}
+                    style={v != null ? tone(v, stats, m.lowerIsBetter, m.key) : undefined}
                   >
                     {v != null ? formatValue(v, m) : <span className="text-slate-300">—</span>}
+                    {p90Val != null && p90Spec && <div className="text-[9px] text-slate-400">{formatValue(p90Val, p90Spec)}</div>}
                   </td>
                 );
-              }),
-            )}
+              });
+            })}
           </tr>
         ))}
       </tbody>
@@ -913,7 +977,192 @@ function MatrixTable({
   );
 }
 
+function TransposedTable({
+  columnGroups,
+  models,
+  orderedTestSets,
+  cellValue,
+  tone,
+  columnStats,
+  metricsFor,
+  avgFor,
+  summaryMetrics,
+  avgStats,
+  onToggleTranspose,
+  sort,
+  onHeaderClick,
+}: {
+  columnGroups: Array<{ scenario: Scenario; customers: Array<{ customer: string; locales: Array<{ locale: string; testsets: TestSet[] }>; testsets: TestSet[] }>; total: number }>;
+  models: Model[];
+  orderedTestSets: TestSet[];
+  cellValue: Map<string, number>;
+  tone: (v: number, s: { min: number; max: number } | undefined, lib: boolean, metric?: MetricKey) => React.CSSProperties;
+  columnStats: Map<string, { min: number; max: number }>;
+  metricsFor: (t: TestSet) => MetricSpec[];
+  avgFor: (m: Model, sp: MetricSpec) => number | null;
+  summaryMetrics: MetricSpec[];
+  avgStats: Map<MetricKey, { min: number; max: number }>;
+  onToggleTranspose: () => void;
+  sort: SortState;
+  onHeaderClick: (id: string, lowerIsBetter: boolean) => void;
+}) {
+  if (orderedTestSets.length === 0 || models.length === 0) {
+    return <p className="px-4 py-12 text-center text-sm text-slate-500">No data matches the current filters.</p>;
+  }
+
+  const MODEL_COL_W = 72;
+  const HEADER_H = 260;
+
+  const tsRowCount = (t: TestSet) => metricsFor(t).length;
+  const localeRowCount = (loc: { testsets: TestSet[] }) => loc.testsets.reduce((n, t) => n + tsRowCount(t), 0);
+  const customerRowCount = (c: { locales: Array<{ testsets: TestSet[] }> }) => c.locales.reduce((n, l) => n + localeRowCount(l), 0);
+  const scenarioRowCount = (g: { customers: Array<{ locales: Array<{ testsets: TestSet[] }> }> }) => g.customers.reduce((n, c) => n + customerRowCount(c), 0);
+
+  return (
+    <div className="overflow-auto">
+      <table className="border-separate border-spacing-0 text-sm" style={{ tableLayout: "fixed" }}>
+        <colgroup>
+          <col style={{ width: 36 }} />
+          <col style={{ width: 56 }} />
+          <col style={{ width: 48 }} />
+          <col style={{ width: 130 }} />
+          <col style={{ width: 48 }} />
+          {models.map((m) => <col key={m.id} style={{ width: MODEL_COL_W }} />)}
+        </colgroup>
+        <thead>
+          <tr>
+            <th colSpan={4} className="border-b border-r border-slate-200 bg-white px-2 py-1 text-left">
+              <button type="button" onClick={onToggleTranspose} title="Switch to models-as-rows" className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+              </button>
+            </th>
+            <th className="border-b border-r border-slate-200 bg-white px-1 py-1 text-center text-[10px] font-semibold text-slate-500">Metric</th>
+            {models.map((m) => (
+              <th key={m.id} className="border-b border-r border-slate-200 bg-slate-50 p-0" style={{ height: HEADER_H, width: MODEL_COL_W }}>
+                <HoverTip content={<ModelTooltipContent m={m} />} placement="below">
+                  <div
+                    className="py-1 px-0.5"
+                    style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", height: HEADER_H, width: MODEL_COL_W, overflow: "hidden", textAlign: "left" }}
+                  >
+                    <span className="font-semibold text-slate-900 text-sm" style={{ lineHeight: 1.4 }}>{m.name}</span>
+                    <br />
+                    <span className="text-xs text-slate-500" style={{ lineHeight: 1.4 }}>{m.vendor} · {m.modelVersion}</span>
+                    <br />
+                    <span style={{ marginTop: 2, display: "inline" }}>
+                      <span className="text-[10px] text-slate-500">{m.deployment}</span>
+                      {m.asrMode && <span className="text-[10px] text-slate-500">{" · "}{m.asrMode}</span>}
+                      {m.hardware && (
+                        <span className="text-[10px] text-slate-500">
+                          {" · "}{m.hardware.architecture} · {m.hardware.runtime}
+                          {m.hardware.quantization ? ` · ${m.hardware.quantization}` : ""}
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                </HoverTip>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {summaryMetrics.map((metric, sIdx) => (
+            <tr key={`summary-${metric.key}`}>
+              {sIdx === 0 && (
+                <th colSpan={4} rowSpan={summaryMetrics.length} className="border-b border-r border-slate-200 bg-azure-700 px-2 py-1.5 text-left text-xs font-semibold uppercase tracking-wide text-white align-middle">Summary</th>
+              )}
+              <td className="border-b border-r border-azure-200 bg-azure-50 px-1 py-1 text-center text-[10px] font-semibold text-azure-800">
+                <div
+                  className={`cursor-pointer rounded px-1 py-0.5 ${sort.columnId === `avg:${metric.key}` ? "bg-slate-900 text-white" : "hover:bg-azure-100"}`}
+                  onClick={() => onHeaderClick(`avg:${metric.key}`, metric.lowerIsBetter)}
+                >
+                  {metric.label}
+                  {sort.columnId === `avg:${metric.key}` && <span className="ml-0.5">{sort.asc ? "↑" : "↓"}</span>}
+                </div>
+              </td>
+              {models.map((mdl) => {
+                const a = avgFor(mdl, metric);
+                const stats = avgStats.get(metric.key);
+                return (
+                  <td key={mdl.id} className="border-b border-r border-azure-100 px-1 py-1 text-right font-mono tabular-nums text-xs font-semibold" style={a != null ? tone(a, stats, metric.lowerIsBetter, metric.key) : undefined}>
+                    {a != null ? formatValue(a, metric) : <span className="text-slate-300">—</span>}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+          {columnGroups.flatMap((g) => {
+            const sRows = scenarioRowCount(g);
+            if (sRows === 0) return [];
+            let scenarioRendered = false;
+            return g.customers.flatMap((c) => {
+              const cRows = customerRowCount(c);
+              if (cRows === 0) return [];
+              let customerRendered = false;
+              return c.locales.flatMap((loc) => {
+                const lRows = localeRowCount(loc);
+                if (lRows === 0) return [];
+                let localeRendered = false;
+                return loc.testsets.flatMap((t) => {
+                  const tsMetrics = metricsFor(t);
+                  if (tsMetrics.length === 0) return [];
+                  return tsMetrics.map((metric, mIdx) => {
+                    const showScenario = !scenarioRendered;
+                    const showCustomer = !customerRendered;
+                    const showLocale = !localeRendered;
+                    if (showScenario) scenarioRendered = true;
+                    if (showCustomer) customerRendered = true;
+                    if (showLocale) localeRendered = true;
+                    return (
+                      <tr key={`${t.id}-${metric.key}`} className="hover:bg-slate-50/60">
+                        {showScenario && <th rowSpan={sRows} className="border-b border-r border-slate-200 bg-slate-900 px-1 py-1 text-center text-[10px] font-semibold uppercase tracking-wide text-white align-middle" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>{g.scenario}</th>}
+                        {showCustomer && <th rowSpan={cRows} className="border-b border-r border-slate-200 bg-slate-100 px-1 py-1 text-center text-[10px] font-semibold text-slate-700 align-middle" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>{c.customer}</th>}
+                        {showLocale && <th rowSpan={lRows} className="border-b border-r border-slate-200 bg-slate-50 px-1 py-0.5 text-center text-[10px] font-medium text-slate-600 align-middle">{loc.locale}</th>}
+                        {mIdx === 0 && (
+                          <th rowSpan={tsMetrics.length} className="border-b border-r border-slate-200 bg-white px-2 py-1 text-left text-xs font-medium text-slate-700 align-top">
+                            <HoverTip content={<TestSetTooltipContent t={t} />} placement="right">
+                              <span className="font-semibold">{t.name.replace(new RegExp(`^${t.customer}\\s*`, "i"), "")}</span>
+                            </HoverTip>
+                          </th>
+                        )}
+                        <td className="border-b border-r border-slate-200 bg-slate-50 px-1 py-1 text-center text-[10px] font-semibold text-slate-500" style={{ height: 40 }}>
+                          <HoverTip content={<span>{METRIC_DEFINITIONS[metric.key] ?? metric.label}</span>} placement="above">
+                            <div
+                              className={`cursor-pointer rounded px-1 py-0.5 ${sort.columnId === `cell:${t.id}:${metric.key}` ? "bg-slate-900 text-white" : "hover:bg-slate-100"}`}
+                              onClick={() => onHeaderClick(`cell:${t.id}:${metric.key}`, metric.lowerIsBetter)}
+                            >
+                              {metric.key === "WER" ? (prefersCerFor(t) ? "CER" : "WER") : metric.label}
+                              {sort.columnId === `cell:${t.id}:${metric.key}` && <span className="ml-0.5">{sort.asc ? "↑" : "↓"}</span>}
+                            </div>
+                          </HoverTip>
+                        </td>
+                        {models.map((mdl) => {
+                          const v = cellValue.get(`${mdl.id}|${t.id}|${metric.key}`);
+                          const p90Key = P90_COMPANION[metric.key];
+                          const p90Val = p90Key ? cellValue.get(`${mdl.id}|${t.id}|${p90Key}`) : undefined;
+                          const p90Spec = p90Key ? ALL_METRIC_MAP.get(p90Key) : undefined;
+                          const stats = columnStats.get(`${t.id}|${metric.key}`);
+                          return (
+                            <td key={mdl.id} className="border-b border-r border-slate-100 px-1 py-1 text-right font-mono tabular-nums text-xs" style={{ height: 40, ...(v != null ? tone(v, stats, metric.lowerIsBetter, metric.key) : {}) }}>
+                              {v != null ? formatValue(v, metric) : <span className="text-slate-300">—</span>}
+                              {p90Val != null && p90Spec && <div className="text-[9px] text-slate-400">{formatValue(p90Val, p90Spec)}</div>}
+                            </td>
+                          );
+                        })}
+                      </tr>
+                    );
+                  });
+                });
+              });
+            });
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 function formatValue(v: number, m: MetricSpec): string {
+  if (m.unit === "%") return v.toFixed(1) + "%";
   if (m.unit === "ms") return Math.round(v).toString();
   if (m.key === "MOS" || m.key === "pronunciation_acc" || m.key === "RTF") return v.toFixed(2);
   return v.toFixed(1);
@@ -939,7 +1188,6 @@ function ModelHeader({ m }: { m: Model }) {
         <div className="min-w-0">
           <div className="flex items-center gap-1">
             <span className="font-semibold text-slate-900">{m.name}</span>
-            <InfoIcon />
           </div>
           <div className="mt-0.5 text-xs text-slate-500">{m.vendor} · {m.modelVersion}</div>
           <div className="mt-1 flex flex-wrap gap-1">
@@ -959,6 +1207,9 @@ function ModelHeader({ m }: { m: Model }) {
 }
 
 function TestSetTooltipContent({ t }: { t: TestSet }) {
+  const metrics = t.metrics?.length
+    ? t.metrics.map(k => ALL_METRIC_MAP.get(k)).filter(Boolean)
+    : [];
   return (
     <>
       <div className="flex items-start justify-between gap-2">
@@ -968,7 +1219,7 @@ function TestSetTooltipContent({ t }: { t: TestSet }) {
             href={t.homepageUrl}
             target="_blank"
             rel="noreferrer"
-            className="pointer-events-auto shrink-0 rounded-md border border-azure-500 px-2 py-0.5 text-[11px] font-medium text-azure-700 hover:bg-azure-50"
+            className="shrink-0 rounded-md border border-azure-500 px-2 py-0.5 text-[11px] font-medium text-azure-700 hover:bg-azure-50"
           >
             homepage ↗
           </a>
@@ -981,11 +1232,21 @@ function TestSetTooltipContent({ t }: { t: TestSet }) {
       ) : (
         <p className="mt-2 text-slate-600">{t.description}</p>
       )}
+      {metrics.length > 0 && (
+        <div className="mt-2">
+          <span className="text-[10px] font-semibold uppercase text-slate-500">Metrics: </span>
+          {metrics.map((m) => (
+            <span key={m!.key} className="mr-1 inline-block rounded bg-slate-100 px-1.5 py-0.5 text-[10px] text-slate-700">
+              {m!.label}{m!.unit ? ` (${m!.unit})` : ""} — {m!.lowerIsBetter ? "lower is better" : "higher is better"}
+            </span>
+          ))}
+        </div>
+      )}
       <div className="mt-2 flex flex-wrap gap-1">
         <Badge tone="slate">{t.scenario}</Badge>
         <Badge tone="indigo">{t.customer}</Badge>
         {t.languages.map((l) => (
-          <Badge key={l.code} tone="teal">{l.code} · {l.tier} · {l.region}</Badge>
+          <Badge key={l.code} tone="teal">{l.code}</Badge>
         ))}
         <Badge tone="slate">{t.size} samples</Badge>
         {t.allowsThirdPartyEndpoints && <Badge tone="amber">⚠ may call 3rd-party endpoints</Badge>}
@@ -1041,6 +1302,8 @@ function ModelTooltipContent({ m }: { m: Model }) {
 
 type Placement = "right" | "below" | "above";
 
+let activeHoverTipClose: (() => void) | null = null;
+
 function HoverTip({
   content,
   placement = "below",
@@ -1051,12 +1314,22 @@ function HoverTip({
   children: React.ReactNode;
 }) {
   const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const TIP_W = 320;
 
+  const clearHideTimer = () => {
+    if (hideTimer.current) { clearTimeout(hideTimer.current); hideTimer.current = null; }
+  };
+
+  const close = () => { clearHideTimer(); setPos(null); };
+
   const show = (e: React.MouseEvent | React.FocusEvent) => {
+    if (activeHoverTipClose && activeHoverTipClose !== close) {
+      activeHoverTipClose();
+    }
+    activeHoverTipClose = close;
+    clearHideTimer();
     const el = e.currentTarget as HTMLElement;
-    // `display: contents` means el itself has no box — use first element child,
-    // or fall back to the event's target.
     const firstChild = el.firstElementChild as HTMLElement | null;
     const source = firstChild ?? el;
     const r = source.getBoundingClientRect();
@@ -1072,7 +1345,6 @@ function HoverTip({
       top = r.top - 8;
       left = r.left + r.width / 2 - TIP_W / 2;
     } else {
-      // below
       top = r.bottom + 6;
       left = r.left + r.width / 2 - TIP_W / 2;
     }
@@ -1082,20 +1354,25 @@ function HoverTip({
     if (top > vh - 40) top = vh - 40;
     setPos({ top, left });
   };
-  const hide = () => setPos(null);
+  const scheduleHide = () => {
+    clearHideTimer();
+    hideTimer.current = setTimeout(() => { if (activeHoverTipClose === close) activeHoverTipClose = null; setPos(null); }, 1000);
+  };
 
   return (
     <div
       style={{ display: "contents" }}
       onMouseEnter={show}
-      onMouseLeave={hide}
+      onMouseLeave={scheduleHide}
       onFocus={show}
-      onBlur={hide}
+      onBlur={scheduleHide}
     >
       {children}
       {pos &&
         createPortal(
           <div
+            onMouseEnter={clearHideTimer}
+            onMouseLeave={() => { if (activeHoverTipClose === close) activeHoverTipClose = null; setPos(null); }}
             style={{
               position: "fixed",
               top: pos.top,
@@ -1104,24 +1381,13 @@ function HoverTip({
               zIndex: 10000,
               transform: placement === "above" ? "translateY(-100%)" : undefined,
             }}
-            className="pointer-events-none rounded-lg border border-slate-200 bg-white p-3 text-left text-xs text-slate-700 shadow-xl"
+            className="pointer-events-auto rounded-lg border border-slate-200 bg-white p-3 text-left text-xs text-slate-700 shadow-xl"
           >
             {content}
           </div>,
           document.body,
         )}
     </div>
-  );
-}
-
-function InfoIcon() {
-  return (
-    <span
-      aria-hidden
-      className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-slate-200 text-[10px] font-bold text-slate-600"
-    >
-      i
-    </span>
   );
 }
 
@@ -1143,18 +1409,12 @@ function FilterPanel(props: {
   presentTiers: LanguageTier[];
   presentRegions: Region[];
   presentLocales: LocaleInfo[];
-  deployments: Set<ModelDeployment>;
-  presentDeployments: ModelDeployment[];
-  toggleDeployment: (d: ModelDeployment) => void;
-  hwArchs: Set<HwArchitecture>;
-  presentArchs: HwArchitecture[];
-  toggleHwArch: (h: HwArchitecture) => void;
-  chipsets: Set<string>;
-  toggleChipset: (c: string) => void;
-  presentChipsets: string[];
-  runtimes: Set<Runtime>;
-  presentRuntimes: Runtime[];
-  toggleRuntime: (r: Runtime) => void;
+  hiddenModels: Set<string>;
+  allModels: Model[];
+  toggleModel: (id: string) => void;
+  hiddenMetrics: Set<MetricKey>;
+  allMetrics: MetricKey[];
+  toggleMetric: (k: MetricKey) => void;
 }) {
   return (
     <div className="rounded-lg border border-slate-200 bg-white shadow-sm">
@@ -1268,32 +1528,20 @@ function FilterPanel(props: {
 
             <div className="grid gap-3 md:grid-cols-2">
               <ChipGroup
-                label="Deployment"
-                options={props.presentDeployments.map((d) => ({ value: d, label: d }))}
-                selected={props.deployments as Set<string>}
-                toggle={(v) => props.toggleDeployment(v as ModelDeployment)}
+                label="Models (uncheck to hide)"
+                dense
+                options={props.allModels.map((m) => ({ value: m.id, label: m.name }))}
+                selected={new Set(props.allModels.filter(m => !props.hiddenModels.has(m.id)).map(m => m.id))}
+                toggle={(v) => props.toggleModel(v)}
               />
               <ChipGroup
-                label="Hardware architecture"
-                options={props.presentArchs.map((h) => ({ value: h, label: h }))}
-                selected={props.hwArchs as Set<string>}
-                toggle={(v) => props.toggleHwArch(v as HwArchitecture)}
+                label="Metrics (uncheck to hide)"
+                dense
+                options={props.allMetrics.map((k) => ({ value: k, label: ALL_METRIC_MAP.get(k)?.label ?? k }))}
+                selected={new Set(props.allMetrics.filter(k => !props.hiddenMetrics.has(k)))}
+                toggle={(v) => props.toggleMetric(v as MetricKey)}
               />
             </div>
-
-            <ChipGroup
-              label="Testing Hardware"
-              options={props.presentChipsets.map((c) => ({ value: c, label: c }))}
-              selected={props.chipsets}
-              toggle={(v) => props.toggleChipset(v)}
-            />
-
-            <ChipGroup
-              label="Runtime"
-              options={props.presentRuntimes.map((r) => ({ value: r, label: r }))}
-              selected={props.runtimes as Set<string>}
-              toggle={(v) => props.toggleRuntime(v as Runtime)}
-            />
           </div>
         </div>
       </div>
