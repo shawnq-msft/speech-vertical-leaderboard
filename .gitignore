@@ -9,3 +9,4 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 *.log
+public/data/error-analysis/audio

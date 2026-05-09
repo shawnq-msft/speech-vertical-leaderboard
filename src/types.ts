@@ -141,6 +141,8 @@ export interface TestSet {
   description: string;
   descriptionBullets?: string[];
   homepageUrl?: string;
+  errorAnalysisUrl?: string;
+  reportUrl?: string;
   size: number;
   languages: LanguageCoverage[];
   scenario: Scenario;

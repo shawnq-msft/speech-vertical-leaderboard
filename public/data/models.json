@@ -68,5 +68,16 @@
     },
     "submittedBy": "lab-admin",
     "approvedAt": "2026-05-06"
+  },
+  {
+    "id": "m-azure-whisper-v3",
+    "name": "Azure Whisper V3",
+    "taskType": "ASR",
+    "asrMode": "batch",
+    "vendor": "Azure",
+    "deployment": "cloud-api",
+    "modelVersion": "whisper-large-v3",
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   }
 ]

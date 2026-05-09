@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report Viewer</title>
+<style>
+  body {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #1f2937;
+    background: #fff;
+  }
+  h1 { font-size: 1.75rem; border-bottom: 1px solid #e5e7eb; padding-bottom: .3em; margin-top: 1.5em; }
+  h2 { font-size: 1.4rem;  border-bottom: 1px solid #e5e7eb; padding-bottom: .3em; margin-top: 1.5em; }
+  h3 { font-size: 1.15rem; margin-top: 1.2em; }
+  a { color: #2563eb; }
+  code {
+    background: #f3f4f6; padding: .15em .35em; border-radius: 4px;
+    font-size: .9em; font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+  }
+  pre {
+    background: #f3f4f6; padding: 1em; border-radius: 6px; overflow-x: auto;
+    font-size: .85em; line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; }
+  blockquote { border-left: 4px solid #d1d5db; margin: 1em 0; padding: .5em 1em; color: #6b7280; }
+  table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: .85em; }
+  th, td { border: 1px solid #d1d5db; padding: .4em .6em; text-align: left; white-space: nowrap; }
+  th { background: #f9fafb; font-weight: 600; position: sticky; top: 0; }
+  tr:nth-child(even) { background: #f9fafb; }
+  ul, ol { padding-left: 1.5em; }
+  li + li { margin-top: .25em; }
+  hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+  strong { font-weight: 600; }
+  .back-link {
+    display: inline-block; margin-bottom: 1rem; padding: .35em .75em;
+    font-size: .85em; color: #2563eb; border: 1px solid #93c5fd;
+    border-radius: 6px; text-decoration: none;
+  }
+  .back-link:hover { background: #eff6ff; }
+  .loading { color: #9ca3af; font-style: italic; }
+  .error { color: #dc2626; }
+  .inline-player {
+    display: inline-flex; align-items: center; gap: 4px; vertical-align: middle;
+  }
+  .inline-player audio { height: 24px; width: 180px; }
+  .play-btn {
+    cursor: pointer; border: none; background: #2563eb; color: #fff;
+    width: 22px; height: 22px; border-radius: 50%; font-size: 11px;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 0; flex-shrink: 0; line-height: 1;
+  }
+  .play-btn:hover { background: #1d4ed8; }
+</style>
+</head>
+<body>
+<a class="back-link" href="javascript:history.back()">← Back</a>
+<div id="content" class="loading">Loading…</div>
+<script type="module">
+import { marked } from 'https://cdn.jsdelivr.net/npm/marked@15/lib/marked.esm.js';
+
+const el = document.getElementById('content');
+const file = new URLSearchParams(location.search).get('file');
+
+if (!file) {
+  el.className = 'error';
+  el.textContent = 'No file specified. Use ?file=path';
+} else {
+  try {
+    const res = await fetch(file);
+    if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+    const md = await res.text();
+    el.className = '';
+    el.innerHTML = marked.parse(md);
+
+    const title = md.match(/^#\s+(.+)/m);
+    if (title) document.title = title[1];
+
+    el.querySelectorAll('a').forEach(a => {
+      const href = a.getAttribute('href') || '';
+      if (!href.match(/\.wav($|\?)/i)) return;
+
+      const baseUrl = new URL(file, location.href).href;
+      const audioUrl = new URL(href, baseUrl).href;
+      const wrapper = document.createElement('span');
+      wrapper.className = 'inline-player';
+
+      const btn = document.createElement('button');
+      btn.className = 'play-btn';
+      btn.textContent = '▶';
+      btn.title = decodeURIComponent(audioUrl.split('/').pop());
+
+      const audio = document.createElement('audio');
+      audio.preload = 'none';
+      audio.src = audioUrl;
+      audio.controls = true;
+
+      btn.onclick = () => {
+        if (audio.paused) { audio.play(); btn.textContent = '⏸'; }
+        else { audio.pause(); btn.textContent = '▶'; }
+      };
+      audio.onended = () => { btn.textContent = '▶'; };
+      audio.onpause = () => { btn.textContent = '▶'; };
+      audio.onplay  = () => { btn.textContent = '⏸'; };
+
+      wrapper.append(btn, audio);
+      a.replaceWith(wrapper);
+    });
+
+  } catch (e) {
+    el.className = 'error';
+    el.textContent = `Failed to load: ${e.message}`;
+  }
+}
+</script>
+</body>
+</html>

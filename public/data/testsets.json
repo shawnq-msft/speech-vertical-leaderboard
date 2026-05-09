@@ -28,7 +28,9 @@
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
     "approvedAt": "2026-05-07",
-    "homepageUrl": "https://huggingface.co/datasets/joujiboi/japanese-anime-speech"
+    "homepageUrl": "https://huggingface.co/datasets/joujiboi/japanese-anime-speech",
+    "errorAnalysisUrl": "/data/error-analysis/toyota-round13b-20260507.md",
+    "reportUrl": "/data/reports/toyota-round13-20260507.md"
   },
   {
     "id": "ts-toyota-car-tts-clean",
@@ -58,7 +60,9 @@
     ],
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-07"
+    "approvedAt": "2026-05-07",
+    "errorAnalysisUrl": "/data/error-analysis/toyota-round13b-20260507.md",
+    "reportUrl": "/data/reports/toyota-round13-20260507.md"
   },
   {
     "id": "ts-toyota-car-tts-denoise-human",
@@ -88,7 +92,9 @@
     ],
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-07"
+    "approvedAt": "2026-05-07",
+    "errorAnalysisUrl": "/data/error-analysis/toyota-round13b-20260507.md",
+    "reportUrl": "/data/reports/toyota-round13-20260507.md"
   },
   {
     "id": "ts-toyota-car-tts-denoise-nonhuman",
@@ -118,7 +124,9 @@
     ],
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-07"
+    "approvedAt": "2026-05-07",
+    "errorAnalysisUrl": "/data/error-analysis/toyota-round13b-20260507.md",
+    "reportUrl": "/data/reports/toyota-round13-20260507.md"
   },
   {
     "id": "ts-toyota-car-tts-noise-human",
@@ -148,7 +156,9 @@
     ],
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-07"
+    "approvedAt": "2026-05-07",
+    "errorAnalysisUrl": "/data/error-analysis/toyota-round13b-20260507.md",
+    "reportUrl": "/data/reports/toyota-round13-20260507.md"
   },
   {
     "id": "ts-toyota-car-tts-noise-nonhuman",
@@ -178,7 +188,9 @@
     ],
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-07"
+    "approvedAt": "2026-05-07",
+    "errorAnalysisUrl": "/data/error-analysis/toyota-round13b-20260507.md",
+    "reportUrl": "/data/reports/toyota-round13-20260507.md"
   },
   {
     "id": "ts-toyota-kiritan",
@@ -209,7 +221,9 @@
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
     "approvedAt": "2026-05-07",
-    "homepageUrl": "https://huggingface.co/datasets/kiritan/whisper-ja.wer_10.0"
+    "homepageUrl": "https://huggingface.co/datasets/kiritan/whisper-ja.wer_10.0",
+    "errorAnalysisUrl": "/data/error-analysis/toyota-round13b-20260507.md",
+    "reportUrl": "/data/reports/toyota-round13-20260507.md"
   },
   {
     "id": "ts-mazda-de-de-dt1",
@@ -237,9 +251,11 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-de-DE-20260509.md",
+    "reportUrl": "/data/reports/mazda-de-DE-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-de-de-dt2",
@@ -267,9 +283,107 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-de-DE-20260509.md",
+    "reportUrl": "/data/reports/mazda-de-DE-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-de-de-dt3",
+    "name": "DT3",
+    "taskType": "ASR",
+    "description": "Mazda de-DE DT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "de-DE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-de-DE-20260509.md",
+    "reportUrl": "/data/reports/mazda-de-DE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-de-de-dt4",
+    "name": "DT4",
+    "taskType": "ASR",
+    "description": "Mazda de-DE DT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "de-DE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-de-DE-20260509.md",
+    "reportUrl": "/data/reports/mazda-de-DE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-de-de-dt5",
+    "name": "DT5",
+    "taskType": "ASR",
+    "description": "Mazda de-DE DT5 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT5 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "de-DE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-de-DE-20260509.md",
+    "reportUrl": "/data/reports/mazda-de-DE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-de-de-jt1",
@@ -297,9 +411,107 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-de-DE-20260509.md",
+    "reportUrl": "/data/reports/mazda-de-DE-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-de-de-jt2",
+    "name": "JT2",
+    "taskType": "ASR",
+    "description": "Mazda de-DE JT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "de-DE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-de-DE-20260509.md",
+    "reportUrl": "/data/reports/mazda-de-DE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-de-de-jt3",
+    "name": "JT3",
+    "taskType": "ASR",
+    "description": "Mazda de-DE JT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "de-DE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-de-DE-20260509.md",
+    "reportUrl": "/data/reports/mazda-de-DE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-de-de-jt4",
+    "name": "JT4",
+    "taskType": "ASR",
+    "description": "Mazda de-DE JT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "de-DE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-de-DE-20260509.md",
+    "reportUrl": "/data/reports/mazda-de-DE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-en-gb-dt1",
@@ -327,9 +539,11 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-en-GB-20260509.md",
+    "reportUrl": "/data/reports/mazda-en-GB-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-en-gb-dt2",
@@ -357,9 +571,107 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-en-GB-20260509.md",
+    "reportUrl": "/data/reports/mazda-en-GB-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-en-gb-dt3",
+    "name": "DT3",
+    "taskType": "ASR",
+    "description": "Mazda en-GB DT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "en-GB",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-en-GB-20260509.md",
+    "reportUrl": "/data/reports/mazda-en-GB-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-en-gb-dt4",
+    "name": "DT4",
+    "taskType": "ASR",
+    "description": "Mazda en-GB DT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "en-GB",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-en-GB-20260509.md",
+    "reportUrl": "/data/reports/mazda-en-GB-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-en-gb-dt5",
+    "name": "DT5",
+    "taskType": "ASR",
+    "description": "Mazda en-GB DT5 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT5 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "en-GB",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-en-GB-20260509.md",
+    "reportUrl": "/data/reports/mazda-en-GB-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-en-gb-jt1",
@@ -387,9 +699,107 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-en-GB-20260509.md",
+    "reportUrl": "/data/reports/mazda-en-GB-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-en-gb-jt2",
+    "name": "JT2",
+    "taskType": "ASR",
+    "description": "Mazda en-GB JT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "en-GB",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-en-GB-20260509.md",
+    "reportUrl": "/data/reports/mazda-en-GB-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-en-gb-jt3",
+    "name": "JT3",
+    "taskType": "ASR",
+    "description": "Mazda en-GB JT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "en-GB",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-en-GB-20260509.md",
+    "reportUrl": "/data/reports/mazda-en-GB-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-en-gb-jt4",
+    "name": "JT4",
+    "taskType": "ASR",
+    "description": "Mazda en-GB JT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "en-GB",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-en-GB-20260509.md",
+    "reportUrl": "/data/reports/mazda-en-GB-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-es-es-dt1",
@@ -417,9 +827,11 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-es-ES-20260509.md",
+    "reportUrl": "/data/reports/mazda-es-ES-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-es-es-dt2",
@@ -447,9 +859,107 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-es-ES-20260509.md",
+    "reportUrl": "/data/reports/mazda-es-ES-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-es-es-dt3",
+    "name": "DT3",
+    "taskType": "ASR",
+    "description": "Mazda es-ES DT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "es-ES",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-es-ES-20260509.md",
+    "reportUrl": "/data/reports/mazda-es-ES-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-es-es-dt4",
+    "name": "DT4",
+    "taskType": "ASR",
+    "description": "Mazda es-ES DT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "es-ES",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-es-ES-20260509.md",
+    "reportUrl": "/data/reports/mazda-es-ES-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-es-es-dt5",
+    "name": "DT5",
+    "taskType": "ASR",
+    "description": "Mazda es-ES DT5 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT5 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "es-ES",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-es-ES-20260509.md",
+    "reportUrl": "/data/reports/mazda-es-ES-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-es-es-jt1",
@@ -477,9 +987,107 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-es-ES-20260509.md",
+    "reportUrl": "/data/reports/mazda-es-ES-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-es-es-jt2",
+    "name": "JT2",
+    "taskType": "ASR",
+    "description": "Mazda es-ES JT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "es-ES",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-es-ES-20260509.md",
+    "reportUrl": "/data/reports/mazda-es-ES-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-es-es-jt3",
+    "name": "JT3",
+    "taskType": "ASR",
+    "description": "Mazda es-ES JT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "es-ES",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-es-ES-20260509.md",
+    "reportUrl": "/data/reports/mazda-es-ES-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-es-es-jt4",
+    "name": "JT4",
+    "taskType": "ASR",
+    "description": "Mazda es-ES JT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "es-ES",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-es-ES-20260509.md",
+    "reportUrl": "/data/reports/mazda-es-ES-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-fr-fr-dt1",
@@ -507,9 +1115,11 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-fr-FR-20260509.md",
+    "reportUrl": "/data/reports/mazda-fr-FR-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-fr-fr-dt2",
@@ -537,9 +1147,107 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-fr-FR-20260509.md",
+    "reportUrl": "/data/reports/mazda-fr-FR-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-fr-fr-dt3",
+    "name": "DT3",
+    "taskType": "ASR",
+    "description": "Mazda fr-FR DT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "fr-FR",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-fr-FR-20260509.md",
+    "reportUrl": "/data/reports/mazda-fr-FR-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-fr-fr-dt4",
+    "name": "DT4",
+    "taskType": "ASR",
+    "description": "Mazda fr-FR DT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "fr-FR",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-fr-FR-20260509.md",
+    "reportUrl": "/data/reports/mazda-fr-FR-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-fr-fr-dt5",
+    "name": "DT5",
+    "taskType": "ASR",
+    "description": "Mazda fr-FR DT5 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT5 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "fr-FR",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-fr-FR-20260509.md",
+    "reportUrl": "/data/reports/mazda-fr-FR-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-fr-fr-jt1",
@@ -567,9 +1275,107 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-fr-FR-20260509.md",
+    "reportUrl": "/data/reports/mazda-fr-FR-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-fr-fr-jt2",
+    "name": "JT2",
+    "taskType": "ASR",
+    "description": "Mazda fr-FR JT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "fr-FR",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-fr-FR-20260509.md",
+    "reportUrl": "/data/reports/mazda-fr-FR-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-fr-fr-jt3",
+    "name": "JT3",
+    "taskType": "ASR",
+    "description": "Mazda fr-FR JT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "fr-FR",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-fr-FR-20260509.md",
+    "reportUrl": "/data/reports/mazda-fr-FR-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-fr-fr-jt4",
+    "name": "JT4",
+    "taskType": "ASR",
+    "description": "Mazda fr-FR JT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "fr-FR",
+        "tier": "tier-1",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-fr-FR-20260509.md",
+    "reportUrl": "/data/reports/mazda-fr-FR-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-it-it-dt1",
@@ -597,9 +1403,11 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-it-IT-20260509.md",
+    "reportUrl": "/data/reports/mazda-it-IT-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-it-it-dt2",
@@ -627,9 +1435,107 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-it-IT-20260509.md",
+    "reportUrl": "/data/reports/mazda-it-IT-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-it-it-dt3",
+    "name": "DT3",
+    "taskType": "ASR",
+    "description": "Mazda it-IT DT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "it-IT",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-it-IT-20260509.md",
+    "reportUrl": "/data/reports/mazda-it-IT-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-it-it-dt4",
+    "name": "DT4",
+    "taskType": "ASR",
+    "description": "Mazda it-IT DT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "it-IT",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-it-IT-20260509.md",
+    "reportUrl": "/data/reports/mazda-it-IT-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-it-it-dt5",
+    "name": "DT5",
+    "taskType": "ASR",
+    "description": "Mazda it-IT DT5 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT5 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "it-IT",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-it-IT-20260509.md",
+    "reportUrl": "/data/reports/mazda-it-IT-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   },
   {
     "id": "ts-mazda-it-it-jt1",
@@ -657,8 +1563,1258 @@
       "lbl_ms",
       "upl_ms"
     ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-it-IT-20260509.md",
+    "reportUrl": "/data/reports/mazda-it-IT-20260509.md",
     "allowsThirdPartyEndpoints": false,
     "submittedBy": "lab-admin",
-    "approvedAt": "2026-05-08"
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-it-it-jt2",
+    "name": "JT2",
+    "taskType": "ASR",
+    "description": "Mazda it-IT JT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "it-IT",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-it-IT-20260509.md",
+    "reportUrl": "/data/reports/mazda-it-IT-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-it-it-jt3",
+    "name": "JT3",
+    "taskType": "ASR",
+    "description": "Mazda it-IT JT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "it-IT",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-it-IT-20260509.md",
+    "reportUrl": "/data/reports/mazda-it-IT-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-it-it-jt4",
+    "name": "JT4",
+    "taskType": "ASR",
+    "description": "Mazda it-IT JT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "it-IT",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-it-IT-20260509.md",
+    "reportUrl": "/data/reports/mazda-it-IT-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nb-no-dt1",
+    "name": "DT1",
+    "taskType": "ASR",
+    "description": "Mazda nb-NO DT1 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT1 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nb-NO",
+        "tier": "tier-3",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nb-NO-20260509.md",
+    "reportUrl": "/data/reports/mazda-nb-NO-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nb-no-dt2",
+    "name": "DT2",
+    "taskType": "ASR",
+    "description": "Mazda nb-NO DT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nb-NO",
+        "tier": "tier-3",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nb-NO-20260509.md",
+    "reportUrl": "/data/reports/mazda-nb-NO-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nb-no-dt3",
+    "name": "DT3",
+    "taskType": "ASR",
+    "description": "Mazda nb-NO DT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nb-NO",
+        "tier": "tier-3",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nb-NO-20260509.md",
+    "reportUrl": "/data/reports/mazda-nb-NO-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nb-no-dt4",
+    "name": "DT4",
+    "taskType": "ASR",
+    "description": "Mazda nb-NO DT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nb-NO",
+        "tier": "tier-3",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nb-NO-20260509.md",
+    "reportUrl": "/data/reports/mazda-nb-NO-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nb-no-dt5",
+    "name": "DT5",
+    "taskType": "ASR",
+    "description": "Mazda nb-NO DT5 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT5 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nb-NO",
+        "tier": "tier-3",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nb-NO-20260509.md",
+    "reportUrl": "/data/reports/mazda-nb-NO-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nb-no-jt1",
+    "name": "JT1",
+    "taskType": "ASR",
+    "description": "Mazda nb-NO JT1 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT1 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nb-NO",
+        "tier": "tier-3",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nb-NO-20260509.md",
+    "reportUrl": "/data/reports/mazda-nb-NO-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nb-no-jt2",
+    "name": "JT2",
+    "taskType": "ASR",
+    "description": "Mazda nb-NO JT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nb-NO",
+        "tier": "tier-3",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nb-NO-20260509.md",
+    "reportUrl": "/data/reports/mazda-nb-NO-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nb-no-jt3",
+    "name": "JT3",
+    "taskType": "ASR",
+    "description": "Mazda nb-NO JT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nb-NO",
+        "tier": "tier-3",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nb-NO-20260509.md",
+    "reportUrl": "/data/reports/mazda-nb-NO-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nb-no-jt4",
+    "name": "JT4",
+    "taskType": "ASR",
+    "description": "Mazda nb-NO JT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nb-NO",
+        "tier": "tier-3",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nb-NO-20260509.md",
+    "reportUrl": "/data/reports/mazda-nb-NO-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nl-nl-dt1",
+    "name": "DT1",
+    "taskType": "ASR",
+    "description": "Mazda nl-NL DT1 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT1 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nl-NL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nl-NL-20260509.md",
+    "reportUrl": "/data/reports/mazda-nl-NL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nl-nl-dt2",
+    "name": "DT2",
+    "taskType": "ASR",
+    "description": "Mazda nl-NL DT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nl-NL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nl-NL-20260509.md",
+    "reportUrl": "/data/reports/mazda-nl-NL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nl-nl-dt3",
+    "name": "DT3",
+    "taskType": "ASR",
+    "description": "Mazda nl-NL DT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nl-NL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nl-NL-20260509.md",
+    "reportUrl": "/data/reports/mazda-nl-NL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nl-nl-dt4",
+    "name": "DT4",
+    "taskType": "ASR",
+    "description": "Mazda nl-NL DT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nl-NL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nl-NL-20260509.md",
+    "reportUrl": "/data/reports/mazda-nl-NL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nl-nl-dt5",
+    "name": "DT5",
+    "taskType": "ASR",
+    "description": "Mazda nl-NL DT5 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT5 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nl-NL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nl-NL-20260509.md",
+    "reportUrl": "/data/reports/mazda-nl-NL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nl-nl-jt1",
+    "name": "JT1",
+    "taskType": "ASR",
+    "description": "Mazda nl-NL JT1 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT1 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nl-NL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nl-NL-20260509.md",
+    "reportUrl": "/data/reports/mazda-nl-NL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nl-nl-jt2",
+    "name": "JT2",
+    "taskType": "ASR",
+    "description": "Mazda nl-NL JT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nl-NL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nl-NL-20260509.md",
+    "reportUrl": "/data/reports/mazda-nl-NL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nl-nl-jt3",
+    "name": "JT3",
+    "taskType": "ASR",
+    "description": "Mazda nl-NL JT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nl-NL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nl-NL-20260509.md",
+    "reportUrl": "/data/reports/mazda-nl-NL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-nl-nl-jt4",
+    "name": "JT4",
+    "taskType": "ASR",
+    "description": "Mazda nl-NL JT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "nl-NL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-nl-NL-20260509.md",
+    "reportUrl": "/data/reports/mazda-nl-NL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-pl-pl-dt1",
+    "name": "DT1",
+    "taskType": "ASR",
+    "description": "Mazda pl-PL DT1 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT1 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "pl-PL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-pl-PL-20260509.md",
+    "reportUrl": "/data/reports/mazda-pl-PL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-pl-pl-dt2",
+    "name": "DT2",
+    "taskType": "ASR",
+    "description": "Mazda pl-PL DT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "pl-PL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-pl-PL-20260509.md",
+    "reportUrl": "/data/reports/mazda-pl-PL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-pl-pl-dt3",
+    "name": "DT3",
+    "taskType": "ASR",
+    "description": "Mazda pl-PL DT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "pl-PL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-pl-PL-20260509.md",
+    "reportUrl": "/data/reports/mazda-pl-PL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-pl-pl-dt4",
+    "name": "DT4",
+    "taskType": "ASR",
+    "description": "Mazda pl-PL DT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "pl-PL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-pl-PL-20260509.md",
+    "reportUrl": "/data/reports/mazda-pl-PL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-pl-pl-dt5",
+    "name": "DT5",
+    "taskType": "ASR",
+    "description": "Mazda pl-PL DT5 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT5 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "pl-PL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-pl-PL-20260509.md",
+    "reportUrl": "/data/reports/mazda-pl-PL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-pl-pl-jt1",
+    "name": "JT1",
+    "taskType": "ASR",
+    "description": "Mazda pl-PL JT1 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT1 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "pl-PL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-pl-PL-20260509.md",
+    "reportUrl": "/data/reports/mazda-pl-PL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-pl-pl-jt2",
+    "name": "JT2",
+    "taskType": "ASR",
+    "description": "Mazda pl-PL JT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "pl-PL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-pl-PL-20260509.md",
+    "reportUrl": "/data/reports/mazda-pl-PL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-pl-pl-jt3",
+    "name": "JT3",
+    "taskType": "ASR",
+    "description": "Mazda pl-PL JT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "pl-PL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-pl-PL-20260509.md",
+    "reportUrl": "/data/reports/mazda-pl-PL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-pl-pl-jt4",
+    "name": "JT4",
+    "taskType": "ASR",
+    "description": "Mazda pl-PL JT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "pl-PL",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-pl-PL-20260509.md",
+    "reportUrl": "/data/reports/mazda-pl-PL-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-sv-se-dt1",
+    "name": "DT1",
+    "taskType": "ASR",
+    "description": "Mazda sv-SE DT1 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT1 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "sv-SE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-sv-SE-20260509.md",
+    "reportUrl": "/data/reports/mazda-sv-SE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-sv-se-dt2",
+    "name": "DT2",
+    "taskType": "ASR",
+    "description": "Mazda sv-SE DT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "sv-SE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-sv-SE-20260509.md",
+    "reportUrl": "/data/reports/mazda-sv-SE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-sv-se-dt3",
+    "name": "DT3",
+    "taskType": "ASR",
+    "description": "Mazda sv-SE DT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "sv-SE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-sv-SE-20260509.md",
+    "reportUrl": "/data/reports/mazda-sv-SE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-sv-se-dt4",
+    "name": "DT4",
+    "taskType": "ASR",
+    "description": "Mazda sv-SE DT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "sv-SE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-sv-SE-20260509.md",
+    "reportUrl": "/data/reports/mazda-sv-SE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-sv-se-dt5",
+    "name": "DT5",
+    "taskType": "ASR",
+    "description": "Mazda sv-SE DT5 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda DT5 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "sv-SE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-sv-SE-20260509.md",
+    "reportUrl": "/data/reports/mazda-sv-SE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-sv-se-jt1",
+    "name": "JT1",
+    "taskType": "ASR",
+    "description": "Mazda sv-SE JT1 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT1 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "sv-SE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-sv-SE-20260509.md",
+    "reportUrl": "/data/reports/mazda-sv-SE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-sv-se-jt2",
+    "name": "JT2",
+    "taskType": "ASR",
+    "description": "Mazda sv-SE JT2 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT2 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "sv-SE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-sv-SE-20260509.md",
+    "reportUrl": "/data/reports/mazda-sv-SE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-sv-se-jt3",
+    "name": "JT3",
+    "taskType": "ASR",
+    "description": "Mazda sv-SE JT3 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT3 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "sv-SE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-sv-SE-20260509.md",
+    "reportUrl": "/data/reports/mazda-sv-SE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
+  },
+  {
+    "id": "ts-mazda-sv-se-jt4",
+    "name": "JT4",
+    "taskType": "ASR",
+    "description": "Mazda sv-SE JT4 voice commands (male + female pooled, 30 random samples).",
+    "descriptionBullets": [
+      "Mazda JT4 voice command set",
+      "Male + female speakers pooled, 30 samples",
+      "Scoring: WER + First Latency + LBL + UPL"
+    ],
+    "size": 30,
+    "languages": [
+      {
+        "code": "sv-SE",
+        "tier": "tier-2",
+        "region": "EMEA"
+      }
+    ],
+    "scenario": "car",
+    "customer": "Mazda",
+    "metrics": [
+      "WER",
+      "first_latency_ms",
+      "lbl_ms",
+      "upl_ms"
+    ],
+    "errorAnalysisUrl": "/data/error-analysis/mazda-sv-SE-20260509.md",
+    "reportUrl": "/data/reports/mazda-sv-SE-20260509.md",
+    "allowsThirdPartyEndpoints": false,
+    "submittedBy": "lab-admin",
+    "approvedAt": "2026-05-09"
   }
 ]

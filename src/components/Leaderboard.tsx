@@ -1214,16 +1214,38 @@ function TestSetTooltipContent({ t }: { t: TestSet }) {
     <>
       <div className="flex items-start justify-between gap-2">
         <div className="font-semibold text-slate-900">{t.name}</div>
-        {t.homepageUrl && (
-          <a
-            href={t.homepageUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="shrink-0 rounded-md border border-azure-500 px-2 py-0.5 text-[11px] font-medium text-azure-700 hover:bg-azure-50"
-          >
-            homepage ↗
-          </a>
-        )}
+        <div className="flex shrink-0 gap-1">
+          {t.reportUrl && (
+            <a
+              href={`/md-viewer.html?file=${encodeURIComponent(t.reportUrl)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md border border-azure-500 px-2 py-0.5 text-[11px] font-medium text-azure-700 hover:bg-azure-50"
+            >
+              report ↗
+            </a>
+          )}
+          {t.errorAnalysisUrl && (
+            <a
+              href={`/md-viewer.html?file=${encodeURIComponent(t.errorAnalysisUrl)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md border border-amber-500 px-2 py-0.5 text-[11px] font-medium text-amber-700 hover:bg-amber-50"
+            >
+              error analysis ↗
+            </a>
+          )}
+          {t.homepageUrl && (
+            <a
+              href={t.homepageUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md border border-slate-300 px-2 py-0.5 text-[11px] font-medium text-slate-600 hover:bg-slate-50"
+            >
+              homepage ↗
+            </a>
+          )}
+        </div>
       </div>
       {t.descriptionBullets && t.descriptionBullets.length > 0 ? (
         <ul className="mt-2 list-disc space-y-0.5 pl-4">
